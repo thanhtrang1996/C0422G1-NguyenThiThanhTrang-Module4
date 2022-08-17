@@ -15,10 +15,17 @@ public class MedicalDeclarationRepository implements IMedicalDeclarationReposito
     private static List<String> yearList = new ArrayList<>();
     private static List<String> genderList = new ArrayList<>();
     private static List<String> nationList = new ArrayList<>();
+    private static List<String> travelInformationList = new ArrayList<>();
 
 
+    static {
+        travelInformationList.add("Tàu bay");
+        travelInformationList.add("Tàu thuyền");
+        travelInformationList.add("Ô tô");
+        travelInformationList.add("Khác");
+    }
 
-    static  {
+    static {
         dayList.add("1");
         dayList.add("2");
         dayList.add("3");
@@ -51,6 +58,7 @@ public class MedicalDeclarationRepository implements IMedicalDeclarationReposito
         dayList.add("30");
         dayList.add("31");
     }
+
     static {
         monthList.add("1");
         monthList.add("2");
@@ -65,6 +73,7 @@ public class MedicalDeclarationRepository implements IMedicalDeclarationReposito
         monthList.add("11");
         monthList.add("12");
     }
+
     static {
         yearList.add("1990");
         yearList.add("1991");
@@ -100,13 +109,15 @@ public class MedicalDeclarationRepository implements IMedicalDeclarationReposito
         yearList.add("2021");
         yearList.add("2022");
     }
+
     static {
-        genderList.add("male");
-        genderList.add("female");
-        genderList.add("other");
+        genderList.add("Nam");
+        genderList.add("Nữ");
+        genderList.add("Khác");
 
     }
-    static{
+
+    static {
         nationList.add("Viet Nam");
         nationList.add("Thai Lan");
         nationList.add("Laos");
@@ -126,6 +137,7 @@ public class MedicalDeclarationRepository implements IMedicalDeclarationReposito
     public List<String> getMonthAll() {
         return monthList;
     }
+
     @Override
     public List<String> getYearAll() {
         return yearList;
@@ -142,7 +154,50 @@ public class MedicalDeclarationRepository implements IMedicalDeclarationReposito
     }
 
     @Override
-    public List<MedicalDeclaration> getMedicalAll(MedicalDeclaration medicalDeclaration) {
+    public List<String> getTravelInformationAll() {
+        return travelInformationList;
+    }
+
+    @Override
+    public MedicalDeclaration findByIdCard(String idCard) {
+        for (int i = 0; i < medicalDeclarationList.size(); i++) {
+            if (medicalDeclarationList.get(i).getIdCard().equals(idCard)) {
+                return medicalDeclarationList.get(i);
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public List<MedicalDeclaration> findAll() {
+        return medicalDeclarationList;
+    }
+
+    @Override
+    public void update(MedicalDeclaration medicalDeclaration) {
+        for (int i = 0; i < medicalDeclarationList.size(); i++) {
+            if (medicalDeclarationList.get(i).getIdCard().equals(medicalDeclaration.getIdCard())) {
+                medicalDeclarationList.get(i).setName(medicalDeclaration.getName());
+                medicalDeclarationList.get(i).setDayOfBirth(medicalDeclaration.getDayOfBirth());
+                medicalDeclarationList.get(i).setGender(medicalDeclaration.getGender());
+                medicalDeclarationList.get(i).setNation(medicalDeclaration.getNation());
+                medicalDeclarationList.get(i).setTravelInformation(medicalDeclaration.getTravelInformation());
+                medicalDeclarationList.get(i).setVehicleNumber(medicalDeclaration.getVehicleNumber());
+                medicalDeclarationList.get(i).setSeats(medicalDeclaration.getSeats());
+                medicalDeclarationList.get(i).setDepartureDay(medicalDeclaration.getDepartureDay());
+                medicalDeclarationList.get(i).setDepartureMonth(medicalDeclaration.getDepartureMonth());
+                medicalDeclarationList.get(i).setDepartureYear(medicalDeclaration.getDepartureYear());
+                medicalDeclarationList.get(i).setEndDate(medicalDeclaration.getEndDate());
+                medicalDeclarationList.get(i).setEndMonth(medicalDeclaration.getEndMonth());
+                medicalDeclarationList.get(i).setEndYear(medicalDeclaration.getEndYear());
+                medicalDeclarationList.get(i).setInformation(medicalDeclaration.getInformation());
+            }
+        }
+    }
+
+    @Override
+    public List<MedicalDeclaration> create(MedicalDeclaration medicalDeclaration) {
+        medicalDeclarationList.add(medicalDeclaration);
         return medicalDeclarationList;
     }
 }

@@ -4,13 +4,17 @@ public class MedicalDeclaration {
     private String name;
     private String dayOfBirth;
     private String gender;
-    private  String nation;
+    private String nation;
     private String idCard;
-    private  String travelInformation;
+    private String travelInformation;
     private String vehicleNumber;
-    private  String  seats;
+    private String seats;
     private String departureDay;
+    private String departureMonth;
+    private String departureYear;
     private String endDate;
+    private String endMonth;
+    private String endYear;
     private String information;
 
     public MedicalDeclaration() {
@@ -31,6 +35,38 @@ public class MedicalDeclaration {
         this.departureDay = departureDay;
         this.endDate = endDate;
         this.information = information;
+    }
+
+    public String getDepartureMonth() {
+        return departureMonth;
+    }
+
+    public void setDepartureMonth(String departureMonth) {
+        this.departureMonth = departureMonth;
+    }
+
+    public String getDepartureYear() {
+        return departureYear;
+    }
+
+    public void setDepartureYear(String departureYear) {
+        this.departureYear = departureYear;
+    }
+
+    public String getEndMonth() {
+        return endMonth;
+    }
+
+    public void setEndMonth(String endMonth) {
+        this.endMonth = endMonth;
+    }
+
+    public String getEndYear() {
+        return endYear;
+    }
+
+    public void setEndYear(String endYear) {
+        this.endYear = endYear;
     }
 
     public String getName() {
@@ -120,4 +156,6 @@ public class MedicalDeclaration {
     public void setInformation(String information) {
         this.information = information;
     }
+
+
 }

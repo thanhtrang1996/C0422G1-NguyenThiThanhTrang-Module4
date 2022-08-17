@@ -10,6 +10,16 @@ import java.util.List;
 
 @Service
 public class MedicalDeclarationService implements IMedicalDeclarationService {
+    @Override
+    public List<MedicalDeclaration> findAll() {
+        return medicalDeclarationRepository.findAll();
+    }
+
+    @Override
+    public void update(MedicalDeclaration medicalDeclaration) {
+        medicalDeclarationRepository.update(medicalDeclaration);
+    }
+
     @Autowired
     private IMedicalDeclarationRepository medicalDeclarationRepository;
 
@@ -39,7 +49,17 @@ public class MedicalDeclarationService implements IMedicalDeclarationService {
     }
 
     @Override
-    public List<MedicalDeclaration> getMedicalAll(MedicalDeclaration medicalDeclaration) {
-        return medicalDeclarationRepository.getMedicalAll(medicalDeclaration);
+    public List<MedicalDeclaration> create(MedicalDeclaration medicalDeclaration) {
+        return medicalDeclarationRepository.create(medicalDeclaration);
+    }
+
+    @Override
+    public List<String> getTravelInformationAll() {
+        return medicalDeclarationRepository.getTravelInformationAll();
+    }
+
+    @Override
+    public MedicalDeclaration findByIdCard(String idCard) {
+        return medicalDeclarationRepository.findByIdCard(idCard);
     }
 }

@@ -15,5 +15,13 @@ public interface IMedicalDeclarationRepository {
 
     List<String> getNationAll();
 
-    List<MedicalDeclaration> getMedicalAll(MedicalDeclaration medicalDeclaration);
+    List<MedicalDeclaration> create(MedicalDeclaration medicalDeclaration);
+
+    List<String> getTravelInformationAll();
+
+    MedicalDeclaration findByIdCard(String idCard);
+
+    List<MedicalDeclaration> findAll();
+
+    void update(MedicalDeclaration medicalDeclaration);
 }
