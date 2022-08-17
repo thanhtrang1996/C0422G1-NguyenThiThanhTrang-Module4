@@ -6,7 +6,7 @@
     <title>Update</title>
 </head>
 <body>
-<form:form method="post" action="/update${medical.idCard}" modelAttribute="medicalDeclaration">
+<form:form method="post" action="/update" modelAttribute="medicalDeclaration">
   <table>
     <tr><h1>Tờ khai y tế</h1></tr>
     <tr><h3>Đây là tài liệu quan trọng,thông tin của anh/chị sẽ giúp cơ quan y tế liên lạc khi

@@ -16,9 +16,11 @@ public class MedicalDeclarationRepository implements IMedicalDeclarationReposito
     private static List<String> genderList = new ArrayList<>();
     private static List<String> nationList = new ArrayList<>();
     private static List<String> travelInformationList = new ArrayList<>();
-static {
-    medicalDeclarationList.add(new MedicalDeclaration("trang","1990","Nam","Viet Nam","1954672463242","Tàu thuyền","34","14","5","9","1998","8","2","1999","ko"));
-}
+
+    static {
+        medicalDeclarationList.add(new MedicalDeclaration("trang", "1990", "Nam", "Viet Nam", "1954672463242", "Tàu thuyền", "34", "14", "5", "9", "1998", "8", "2", "1999", "ko"));
+    }
+
     static {
         travelInformationList.add("Tàu bay");
         travelInformationList.add("Tàu thuyền");
@@ -176,22 +178,23 @@ static {
 
     @Override
     public void update(MedicalDeclaration medicalDeclaration) {
-        for (int i = 0; i < medicalDeclarationList.size(); i++) {
-            if (medicalDeclarationList.get(i).getIdCard().equals(medicalDeclaration.getIdCard())) {
-                medicalDeclarationList.get(i).setName(medicalDeclaration.getName());
-                medicalDeclarationList.get(i).setDayOfBirth(medicalDeclaration.getDayOfBirth());
-                medicalDeclarationList.get(i).setGender(medicalDeclaration.getGender());
-                medicalDeclarationList.get(i).setNation(medicalDeclaration.getNation());
-                medicalDeclarationList.get(i).setTravelInformation(medicalDeclaration.getTravelInformation());
-                medicalDeclarationList.get(i).setVehicleNumber(medicalDeclaration.getVehicleNumber());
-                medicalDeclarationList.get(i).setSeats(medicalDeclaration.getSeats());
-                medicalDeclarationList.get(i).setDepartureDay(medicalDeclaration.getDepartureDay());
-                medicalDeclarationList.get(i).setDepartureMonth(medicalDeclaration.getDepartureMonth());
-                medicalDeclarationList.get(i).setDepartureYear(medicalDeclaration.getDepartureYear());
-                medicalDeclarationList.get(i).setEndDate(medicalDeclaration.getEndDate());
-                medicalDeclarationList.get(i).setEndMonth(medicalDeclaration.getEndMonth());
-                medicalDeclarationList.get(i).setEndYear(medicalDeclaration.getEndYear());
-                medicalDeclarationList.get(i).setInformation(medicalDeclaration.getInformation());
+        for (MedicalDeclaration me : medicalDeclarationList) {
+            if (me.getIdCard().equals(medicalDeclaration.getIdCard())) {
+                me.setName(medicalDeclaration.getName());
+                me.setDayOfBirth(medicalDeclaration.getDayOfBirth());
+                me.setGender(medicalDeclaration.getGender());
+                me.setNation(medicalDeclaration.getNation());
+                me.setTravelInformation(medicalDeclaration.getTravelInformation());
+                me.setVehicleNumber(medicalDeclaration.getVehicleNumber());
+                me.setSeats(medicalDeclaration.getSeats());
+                me.setDepartureDay(medicalDeclaration.getDepartureDay());
+                me.setDepartureMonth(medicalDeclaration.getDepartureMonth());
+                me.setDepartureYear(medicalDeclaration.getDepartureYear());
+                me.setEndDate(medicalDeclaration.getEndDate());
+                me.setEndMonth(medicalDeclaration.getEndMonth());
+                me.setEndYear(medicalDeclaration.getEndYear());
+                me.setInformation(medicalDeclaration.getInformation());
+                return;
             }
         }
     }
