@@ -6,7 +6,7 @@
     <title>Update</title>
 </head>
 <body>
-<form:form method="post" action="/update" modelAttribute="medicalDeclaration">
+<form:form method="post" action="/update${medical.idCard}" modelAttribute="medicalDeclaration">
   <table>
     <tr><h1>Tờ khai y tế</h1></tr>
     <tr><h3>Đây là tài liệu quan trọng,thông tin của anh/chị sẽ giúp cơ quan y tế liên lạc khi
@@ -15,45 +15,45 @@
       hình sự</h4></tr>
 
     <tr>
-      <td><label for="name">Name</label></td>
-      <td><form:input path="name" id="name"/></td>
+      <td><form:label path="name">Họ và tên : </form:label></td>
+      <td><form:input path="name"/></td>
     </tr>
     <tr>
-      <td><label for="dayOfBirth">Day of birthday</label></td>
-      <td><form:select path="dayOfBirth" id="dayOfBirth" items="${yearList}" >
+      <td><form:label path="dayOfBirth">Năm Sinh : </form:label></td>
+      <td><form:select path="dayOfBirth" items="${yearList}">
       </form:select></td>
     </tr>
 
     <tr>
-      <td><label for="gender"></label></td>
-      <td><form:select path="gender" id="gender" items="${genderList}">
+      <td><form:label path="gender">Giới Tính: </form:label></td>
+      <td><form:select path="gender" items="${genderList}">
       </form:select></td>
     </tr>
     <tr>
-      <td><label for="nation">Nation</label></td>
-      <td><form:select path="nation" id="nation" items="${nationList}">
+      <td><form:label path="nation">Quốc Tịch: </form:label></td>
+      <td><form:select path="nation" items="${nationList}">
       </form:select></td>
     </tr>
     <tr>
-      <td><label for="idCard">Số hộ chiếu hoặc số CMND hoặc giấy thông hành hợp pháp khác</label></td>
-      <td><form:input path="idCard" id="idCard"/></td>
+      <td><form:label path="idCard">Số hộ chiếu hoặc số CMND hoặc giấy thông hành hợp pháp khác </form:label></td>
+      <td><form:input path="idCard"/></td>
     </tr>
     <tr>
-      <td><label for="travelInformation">Thông tin đi lại</label></td>
-      <td><form:radiobuttons path="travelInformation" id="travelInformation" items="${travelInformationList}"/></td>
+      <td><form:label path="travelInformation">Thông tin đi lại</form:label></td>
+      <td><form:radiobuttons path="travelInformation" items="${travelInformationList}"/></td>
     </tr>
     <tr>
-      <td><label for="vehicleNumber">Số hiệu phương tiện</label></td>
-      <td><form:input path="vehicleNumber" id="vehicleNumber"/></td>
+      <td><form:label path="vehicleNumber">Số hiệu phương tiện </form:label></td>
+      <td><form:input path="vehicleNumber"/></td>
     </tr>
     <tr>
-      <td><label for="seats">Số ghế</label></td>
-      <td><form:input path="seats" id="seats"/></td>
+      <td><form:label path="seats">Số ghế </form:label></td>
+      <td><form:input path="seats"/></td>
     </tr>
     <tr>
-      <td><label for="departureDay">Ngày khởi hành</label></td>
+      <td><form:label path="departureDay">Ngày khởi hành</form:label></td>
       <td colspan="3">
-               <span><form:select path="departureDay" id="departureDay" items="${dayList}">
+               <span><form:select path="departureDay" items="${dayList}">
                </form:select></span>
         <span><form:select path="departureMonth" items="${monthList}">
         </form:select></span>
@@ -62,7 +62,7 @@
       </td>
     </tr>
     <tr>
-      <td><label for="endDate">Ngày khởi hành</label></td>
+      <td><form:label path="endDate">Ngày khởi hành</form:label></td>
       <td colspan="3">
                <span><form:select path="endDate" items="${dayList}">
                </form:select></span>
@@ -73,8 +73,9 @@
       </td>
     </tr>
     <tr>
-      <td><label for="information">Trong vòng 14 ngày qua anh chi có đi tỉnh thành nào không </label></td>
-      <td><form:input path="information" id="information"/></td>
+      <td><form:label
+              path="information">Trong vòng 14 ngày qua anh chi có đi tỉnh thành nào không </form:label></td>
+      <td><form:input path="information"/></td>
     </tr>
     <tr>
       <td><input type="submit" value="Submit"/></td>

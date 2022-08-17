@@ -15,19 +15,21 @@ import java.util.List;
 public class MailBoxController {
     @Autowired
     private IMailboxService mailboxService;
+
     @GetMapping("/check")
-    public String goMailbox(Model model){
+    public String goMailbox(Model model) {
         List<String> languageList = mailboxService.languageAll();
         model.addAttribute("languageList", languageList);
         List<String> pageSizeList = mailboxService.pageSizeAll();
         model.addAttribute("pageSizeList", pageSizeList);
-        model.addAttribute("mailbox",new Mailbox());
+        model.addAttribute("mailbox", new Mailbox());
         return "mailbox";
     }
+
     @PostMapping("/check")
-    public String mailbox(@ModelAttribute Mailbox mailbox,Model model){
-        List<Mailbox> mailboxList =  mailboxService.displayDetail(mailbox);
-       model.addAttribute("mailboxList",mailboxList);
+    public String mailbox(@ModelAttribute Mailbox mailbox, Model model) {
+        List<Mailbox> mailboxList = mailboxService.displayDetail(mailbox);
+        model.addAttribute("mailboxList", mailboxList);
         return "displayDetail";
     }
 

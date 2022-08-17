@@ -16,8 +16,9 @@ public class MedicalDeclarationRepository implements IMedicalDeclarationReposito
     private static List<String> genderList = new ArrayList<>();
     private static List<String> nationList = new ArrayList<>();
     private static List<String> travelInformationList = new ArrayList<>();
-
-
+static {
+    medicalDeclarationList.add(new MedicalDeclaration("trang","1990","Nam","Viet Nam","1954672463242","Tàu thuyền","34","14","5","9","1998","8","2","1999","ko"));
+}
     static {
         travelInformationList.add("Tàu bay");
         travelInformationList.add("Tàu thuyền");

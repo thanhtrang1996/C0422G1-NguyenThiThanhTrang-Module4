@@ -1,6 +1,5 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
     <title>mailbox</title>
@@ -21,7 +20,7 @@
         <tr>
             <td><form:label path="spamsFilter">Spams Filter: </form:label></td>
             <td><form:checkbox path="spamsFilter"/>
-            <form:label path="spamsFilter"> Enable Spams Filter</form:label></td>
+                <form:label path="spamsFilter"> Enable Spams Filter</form:label></td>
         </tr>
         <tr>
             <td><form:label path="signature">Signature </form:label></td>

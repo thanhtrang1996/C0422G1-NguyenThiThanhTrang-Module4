@@ -25,7 +25,7 @@ public class MailBoxService implements IMailboxService {
 
     @Override
     public List<Mailbox> displayDetail(Mailbox mailbox) {
-        return  mailBoxRepository.displayDetail( mailbox);
+        return mailBoxRepository.displayDetail(mailbox);
 
     }
 }

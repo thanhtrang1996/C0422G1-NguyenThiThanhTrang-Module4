@@ -19,6 +19,7 @@ public class MailBoxRepository implements IMailBoxRepository {
         language.add("Japanese");
         language.add("Chinese");
     }
+
     static {
         pageSize.add("5");
         pageSize.add("10");

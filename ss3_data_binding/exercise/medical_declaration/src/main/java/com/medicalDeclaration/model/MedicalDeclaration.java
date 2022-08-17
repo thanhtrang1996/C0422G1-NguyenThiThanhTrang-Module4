@@ -20,6 +20,48 @@ public class MedicalDeclaration {
     public MedicalDeclaration() {
     }
 
+    public MedicalDeclaration(String name, String dayOfBirth, String gender, String nation,
+                              String travelInformation, String vehicleNumber, String seats, String departureDay,
+                              String departureMonth, String departureYear, String endDate, String endMonth, String endYear,
+                              String information) {
+        this.name = name;
+        this.dayOfBirth = dayOfBirth;
+        this.gender = gender;
+        this.nation = nation;
+        this.travelInformation = travelInformation;
+        this.vehicleNumber = vehicleNumber;
+        this.seats = seats;
+        this.departureDay = departureDay;
+        this.departureMonth = departureMonth;
+        this.departureYear = departureYear;
+        this.endDate = endDate;
+        this.endMonth = endMonth;
+        this.endYear = endYear;
+        this.information = information;
+    }
+
+    public MedicalDeclaration(String name, String dayOfBirth, String gender,
+                              String nation, String idCard, String travelInformation,
+                              String vehicleNumber, String seats, String departureDay,
+                              String departureMonth, String departureYear, String endDate,
+                              String endMonth, String endYear, String information) {
+        this.name = name;
+        this.dayOfBirth = dayOfBirth;
+        this.gender = gender;
+        this.nation = nation;
+        this.idCard = idCard;
+        this.travelInformation = travelInformation;
+        this.vehicleNumber = vehicleNumber;
+        this.seats = seats;
+        this.departureDay = departureDay;
+        this.departureMonth = departureMonth;
+        this.departureYear = departureYear;
+        this.endDate = endDate;
+        this.endMonth = endMonth;
+        this.endYear = endYear;
+        this.information = information;
+    }
+
     public MedicalDeclaration(String name, String dayOfBirth, String gender,
                               String nation, String idCard, String travelInformation,
                               String vehicleNumber, String seats, String departureDay,
