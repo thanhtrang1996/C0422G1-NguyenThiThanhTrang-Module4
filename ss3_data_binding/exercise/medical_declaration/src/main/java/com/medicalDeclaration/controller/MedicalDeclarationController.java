@@ -72,7 +72,7 @@ public class MedicalDeclarationController {
     @PostMapping("/update")
     public String update(@ModelAttribute MedicalDeclaration medicalDeclaration) {
         medicalDeclarationService.update(medicalDeclaration);
-        return "redirect:/list";
+        return "redirect:/";
     }
 
 }
