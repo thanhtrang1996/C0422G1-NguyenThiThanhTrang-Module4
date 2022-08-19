@@ -3,10 +3,9 @@ package com.product.repository;
 import com.product.model.Product;
 
 import java.util.List;
-import java.util.Map;
 
 public interface IProductRepository {
-    List<Product> findAllProduct();
+    List<Product> findAllProduct(String name);
 
     void saveProduct(Product product);
 
@@ -16,5 +15,4 @@ public interface IProductRepository {
 
     Object delete(String id);
 
-    List<Product> search(String name);
 }

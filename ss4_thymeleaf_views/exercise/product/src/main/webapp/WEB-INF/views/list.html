@@ -9,8 +9,8 @@
 </head>
 <body>
 <h1 class="text-danger text-center">Product List</h1>
-<span class="btn btn-info m-3"><a th:href="@{/create}">Create Product</a></span>
-<form th:action="@{/search}" method="get">
+<span class="btn btn-info m-3"><a href="/create">Create Product</a></span>
+<form action="/" method="get">
   <span class="d-flex"><input class="form-control me-2 w-25 " type="text" placeholder="SearchName"
                               name="name" aria-label="Search">
     <button class="btn btn-success" type="submit">Search</button></span>

@@ -25,8 +25,14 @@ public class ProductRepository implements IProductRepository {
     }
 
     @Override
-    public List<Product> findAllProduct() {
-        return new ArrayList<>(productMap.values());
+    public List<Product> findAllProduct(String name) {
+        List<Product> productList = new ArrayList<>();
+        for (Product product : productMap.values()) {
+            if (product.getName().contains(name)) {
+                productList.add(product);
+            }
+        }
+        return productList;
     }
 
     @Override
@@ -49,14 +55,5 @@ public class ProductRepository implements IProductRepository {
         return productMap.remove(id);
     }
 
-    @Override
-    public List<Product> search(String name) {
-        List<Product> productList = new ArrayList<>();
-        for (Product product : productMap.values()) {
-            if (product.getName().contains(name)) {
-                productList.add(product);
-            }
-        }
-        return productList;
-    }
+
 }

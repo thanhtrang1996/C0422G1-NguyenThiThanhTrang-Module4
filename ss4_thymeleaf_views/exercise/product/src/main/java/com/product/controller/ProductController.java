@@ -18,8 +18,8 @@ public class ProductController {
     private IProductService productService;
 
     @GetMapping("/")
-    public String goList(Model model) {
-        List<Product> productList = productService.findAllProduct();
+    public String goList(@RequestParam(required = false, defaultValue = "") String name, Model model) {
+        List<Product> productList = productService.findAllProduct(name);
         model.addAttribute("productList", productList);
         return "list";
     }
@@ -60,12 +60,4 @@ public class ProductController {
         model.addAttribute("product", productService.findById(id));
         return "redirect:/";
     }
-
-    @GetMapping("/search")
-    public String search(@RequestParam String name, Model model) {
-        List<Product> productList = productService.search(name);
-        model.addAttribute("productList", productList);
-        return "list";
-    }
-
 }
