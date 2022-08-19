@@ -2,6 +2,7 @@ package com.medicalDeclaration.repository.impl;
 
 import com.medicalDeclaration.model.MedicalDeclaration;
 import com.medicalDeclaration.repository.IMedicalDeclarationRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -170,7 +171,6 @@ public class MedicalDeclarationRepository implements IMedicalDeclarationReposito
         }
         return null;
     }
-
     @Override
     public List<MedicalDeclaration> findAll() {
         return medicalDeclarationList;
@@ -180,25 +180,10 @@ public class MedicalDeclarationRepository implements IMedicalDeclarationReposito
     public void update(MedicalDeclaration medicalDeclaration) {
         for (MedicalDeclaration me : medicalDeclarationList) {
             if (me.getIdCard().equals(medicalDeclaration.getIdCard())) {
-                me.setName(medicalDeclaration.getName());
-                me.setDayOfBirth(medicalDeclaration.getDayOfBirth());
-                me.setGender(medicalDeclaration.getGender());
-                me.setNation(medicalDeclaration.getNation());
-                me.setTravelInformation(medicalDeclaration.getTravelInformation());
-                me.setVehicleNumber(medicalDeclaration.getVehicleNumber());
-                me.setSeats(medicalDeclaration.getSeats());
-                me.setDepartureDay(medicalDeclaration.getDepartureDay());
-                me.setDepartureMonth(medicalDeclaration.getDepartureMonth());
-                me.setDepartureYear(medicalDeclaration.getDepartureYear());
-                me.setEndDate(medicalDeclaration.getEndDate());
-                me.setEndMonth(medicalDeclaration.getEndMonth());
-                me.setEndYear(medicalDeclaration.getEndYear());
-                me.setInformation(medicalDeclaration.getInformation());
-                return;
+                BeanUtils.copyProperties(medicalDeclaration,me);
             }
         }
     }
-
     @Override
     public List<MedicalDeclaration> create(MedicalDeclaration medicalDeclaration) {
         medicalDeclarationList.add(medicalDeclaration);
