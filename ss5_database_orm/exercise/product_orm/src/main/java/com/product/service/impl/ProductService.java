@@ -29,12 +29,12 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public void update( Product product) {
+    public void update(Product product) {
         productRepository.update(product);
     }
 
     @Override
     public Object delete(int id) {
-       return productRepository.delete(id);
+        return productRepository.delete(id);
     }
 }

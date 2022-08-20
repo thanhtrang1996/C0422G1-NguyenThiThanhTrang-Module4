@@ -5,7 +5,7 @@ import com.music.model.Music;
 import java.util.List;
 
 public interface IMusicService {
-    List<Music> listMusic();
+    List<Music> listMusic(String name);
 
     void addMusic(Music music);
 

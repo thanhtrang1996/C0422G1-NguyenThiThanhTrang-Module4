@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -15,9 +16,20 @@ public class MusicRepository implements IMusicRepository {
     private static final String SELECT_BY_ID = "select m from Music m where m.id = :id";
 
     @Override
-    public List<Music> listMusic() {
+    public List<Music> listMusic(String name) {
         TypedQuery<Music> query = BaseRepository.entityManager.createQuery(SELECT_ALL_PRODUCT, Music.class);
-        return query.getResultList();
+        if (query == null) {
+            return query.getResultList();
+        } else {
+            List<Music> musicList = new ArrayList<>();
+            for (Music musics : query.getResultList()) {
+                if (musics.getNameOfSong().contains(name)) {
+                    musicList.add(musics);
+                }
+            }
+            return musicList;
+        }
+
     }
 
     @Override
@@ -30,13 +42,13 @@ public class MusicRepository implements IMusicRepository {
 
     @Override
     public Object findById(int id) {
-        TypedQuery<Music> query = BaseRepository.entityManager.createQuery(SELECT_BY_ID,Music.class);
-        query.setParameter("id",id);
+        TypedQuery<Music> query = BaseRepository.entityManager.createQuery(SELECT_BY_ID, Music.class);
+        query.setParameter("id", id);
         return query.getSingleResult();
     }
 
     @Override
-    public void update( Music music) {
+    public void update(Music music) {
         EntityTransaction entityTransaction = BaseRepository.entityManager.getTransaction();
         entityTransaction.begin();
         BaseRepository.entityManager.merge(music);
@@ -47,7 +59,7 @@ public class MusicRepository implements IMusicRepository {
     public void delete(int id) {
         EntityTransaction entityTransaction = BaseRepository.entityManager.getTransaction();
         entityTransaction.begin();
-        BaseRepository.entityManager.remove(BaseRepository.entityManager.find(Music.class,id));
+        BaseRepository.entityManager.remove(BaseRepository.entityManager.find(Music.class, id));
         entityTransaction.commit();
     }
 }

@@ -48,7 +48,7 @@ public class ProductRepository implements IProductRepository {
     }
 
     @Override
-    public void update( Product product) {
+    public void update(Product product) {
         EntityTransaction entityTransaction = BaseRepository.entityManager.getTransaction();
         entityTransaction.begin();
         BaseRepository.entityManager.merge(product);
@@ -62,5 +62,5 @@ public class ProductRepository implements IProductRepository {
         BaseRepository.entityManager.remove(BaseRepository.entityManager.find(Product.class, id));
         entityTransaction.commit();
         return null;
-}
+    }
 }

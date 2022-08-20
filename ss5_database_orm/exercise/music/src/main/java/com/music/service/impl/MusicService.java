@@ -14,8 +14,8 @@ public class MusicService implements IMusicService {
     private IMusicRepository musicRepository;
 
     @Override
-    public List<Music> listMusic() {
-        return musicRepository.listMusic();
+    public List<Music> listMusic(String name) {
+        return musicRepository.listMusic(name);
     }
 
     @Override
