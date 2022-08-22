@@ -29,9 +29,7 @@ public class MusicRepository implements IMusicRepository {
             }
             return musicList;
         }
-
     }
-
     @Override
     public void addMusic(Music music) {
         EntityTransaction entityTransaction = BaseRepository.entityManager.getTransaction();

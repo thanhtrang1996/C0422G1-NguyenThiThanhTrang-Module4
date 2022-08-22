@@ -10,7 +10,7 @@
 <body>
 <h1 class="text-center text-danger"> Update Music</h1>
 <div class="container">
-    <form action="/update" th:object="${music}" method="post">
+    <form action="/update" th:object="${music}" method="post" enctype="multipart/form-data">
 
         <div>
             <label class="form-label">ID :</label>
@@ -34,10 +34,10 @@
         </div>
         <div>
             <label class="form-label">Song File Path :</label>
-            <input class="form-control" type="text" th:field="*{songFilePath}"/>
+            <input class="form-control" type="file" th:field="*{songFilePath}"/>
 
         </div>
-        <div class="m-3 btn btn-danger"><input type="submit" value="Save"></div>
+        <div><input class="m-3 btn btn-danger" type="submit" value="Save"></div>
     </form>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

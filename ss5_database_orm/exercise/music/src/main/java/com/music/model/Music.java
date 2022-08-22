@@ -1,5 +1,7 @@
 package com.music.model;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.persistence.*;
 
 @Entity
@@ -8,25 +10,32 @@ public class Music {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "song_name")
+
+    @Column(name = "name")
     private String nameOfSong;
-    @Column(name = "performing_artist")
+
+    @Column(name = "artist")
     private String performingArtist;
-    @Column(name = "kind_music")
+
+    @Column(name = "kind")
     private String kindOfMusic;
-    @Column(name = "song_file_path")
-    private String songFilePath;
+
+    @Column(name = "path")
+    private String link;
+
+    private transient MultipartFile songFilePath;
 
     public Music() {
     }
 
-    public Music(int id, String nameOfSong, String performingArtist, String kindOfMusic, String songFilePath) {
+    public Music(int id, String nameOfSong, String performingArtist, String kindOfMusic, String link) {
         this.id = id;
         this.nameOfSong = nameOfSong;
         this.performingArtist = performingArtist;
         this.kindOfMusic = kindOfMusic;
-        this.songFilePath = songFilePath;
+        this.link = link;
     }
+
 
     public int getId() {
         return id;
@@ -60,11 +69,19 @@ public class Music {
         this.kindOfMusic = kindOfMusic;
     }
 
-    public String getSongFilePath() {
+    public MultipartFile getSongFilePath() {
         return songFilePath;
     }
 
-    public void setSongFilePath(String songFilePath) {
+    public void setSongFilePath(MultipartFile songFilePath) {
         this.songFilePath = songFilePath;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 }

@@ -11,11 +11,12 @@ import java.util.List;
 
 @Controller
 public class MusicController {
+
     @Autowired
     private IMusicService musicService;
 
     @GetMapping("/")
-    public String goList(@RequestParam(required = false,defaultValue = "")String name, Model model) {
+    public String goList(@RequestParam(required = false, defaultValue = "") String name, Model model) {
         List<Music> musicList = musicService.listMusic(name);
         model.addAttribute("musicList", musicList);
         return "list";
@@ -28,8 +29,8 @@ public class MusicController {
     }
 
     @PostMapping("/create")
-    public String addMusic(Music music) {
-        musicService.addMusic(music);
+    public String addMusic(@ModelAttribute Music music) {
+        this.musicService.addMusic(music);
         return "redirect:/";
     }
 
@@ -41,6 +42,7 @@ public class MusicController {
 
     @PostMapping("/update")
     public String update(@ModelAttribute Music music) {
+
         musicService.update(music);
         return "redirect:/";
     }
@@ -50,6 +52,4 @@ public class MusicController {
         musicService.delete(id);
         return "redirect:/";
     }
-
-
 }

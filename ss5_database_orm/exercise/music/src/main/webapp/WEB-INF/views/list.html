@@ -9,7 +9,7 @@
 </head>
 <body>
 <h1 class="text-danger text-center">Music List</h1>
-<span class="btn btn-info m-3"><a href="/create">Create Music</a></span>
+<span><a href="/create" class="btn btn-info m-3 text-light">Create Music</a></span>
 <form action="/" method="get">
   <span class="d-flex"><input class="form-control me-2 w-25 " type="text" placeholder="SearchName"
                               name="name" aria-label="Search">
@@ -25,12 +25,16 @@
         <th>Update</th>
         <th>Delete</th>
     </tr>
-    <tr th:each=" music:${musicList}">
-        <td th:text="${music.getId()}"></td>
-        <td th:text="${music.getNameOfSong()}"></td>
-        <td th:text="${music.getPerformingArtist()}"></td>
-        <td th:text="${music.getKindOfMusic()}"></td>
-        <td th:text="${music.getSongFilePath()}"></td>
+    <tr th:each="music :${musicList}">
+        <td th:text="${music.id}"></td>
+        <td th:text="${music.nameOfSong}"></td>
+        <td th:text="${music.performingArtist}"></td>
+        <td th:text="${music.kindOfMusic}"></td>
+        <td>
+            <audio controls>
+                <source th:src="@{'/music/' + ${music.getLink()}}">
+            </audio>
+        </td>
         <td><a th:href="@{/update/{id}(id=${music.id})}">
             <buton class="btn btn-success">Update</buton>
         </a></td>
