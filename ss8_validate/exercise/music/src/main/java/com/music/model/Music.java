@@ -1,7 +1,5 @@
 package com.music.model;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import javax.persistence.*;
 
 @Entity
@@ -30,7 +28,6 @@ public class Music {
         this.kindOfMusic = kindOfMusic;
 
     }
-
 
     public int getId() {
         return id;

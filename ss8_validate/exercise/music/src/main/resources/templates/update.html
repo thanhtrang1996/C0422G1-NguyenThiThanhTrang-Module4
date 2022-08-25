@@ -8,7 +8,7 @@
 <body>
 <h1 class="text-center text-danger"> Update Music</h1>
 <div class="container">
-    <form action="/update" th:object="${musicDto}" method="post" >
+    <form action="/update" th:object="${musicDto}" method="post">
         <div>
             <label class="form-label">ID :</label>
             <input class="form-control" readonly type="text" th:field="*{id}"/>
