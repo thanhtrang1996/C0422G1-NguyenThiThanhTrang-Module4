@@ -42,6 +42,8 @@ public class BlogController {
 
     @GetMapping("/create")
     public String goCreate(Model model) {
+        List<Category> categoryList = categoryService.findAll();
+        model.addAttribute("categoryList",categoryList);
         model.addAttribute("blog", new Blog());
         return "blog/create";
     }
@@ -54,6 +56,8 @@ public class BlogController {
 
     @GetMapping("/update/{id}")
     public String showUpdate(@PathVariable Integer id, Model model) {
+        List<Category> categoryList = categoryService.findAll();
+        model.addAttribute("categoryList",categoryList);
         model.addAttribute("blog", blogService.findById(id));
         return "blog/update";
     }

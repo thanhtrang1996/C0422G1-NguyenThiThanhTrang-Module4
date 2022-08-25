@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-public interface IProductRepository extends JpaRepository {
+public interface IProductRepository extends JpaRepository<Product,Integer> {
 
-    @Query(value = " select * from product_spring where name like :name  ", nativeQuery = true)
+    @Query(value = " select * from product where name like :name  ", nativeQuery = true)
     Page<Product> findAllByName(Pageable pageable, @Param("name") String name);
 }
