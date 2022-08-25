@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Music List</title>
+    <link rel="stylesheet" href="/style/bootstrap/bootstrap.min.css">
+</head>
+<body>
+<h1 class="text-danger text-center">Music List</h1>
+<span><a href="/create" class="btn btn-info m-3 text-light">Create Music</a></span>
+<form action="/" method="get">
+  <span class="d-flex"><input class="form-control me-2 w-25 " type="text" placeholder="SearchName"
+                              name="name" aria-label="Search">
+    <button class="btn btn-success" type="submit">Search</button></span>
+</form>
+<h4  class="text-success" th:text="${msg}"></h4>
+<table class="table table-hover">
+    <tr>
+        <th>ID</th>
+        <th>Name Of Song</th>
+        <th>Performing Artist</th>
+        <th>Kind Of Music</th>
+        <th>Update</th>
+    </tr>
+    <tr th:each="music :${musicList}">
+        <td th:text="${music.id}"></td>
+        <td th:text="${music.nameOfSong}"></td>
+        <td th:text="${music.performingArtist}"></td>
+        <td th:text="${music.kindOfMusic}"></td>
+        <td><a th:href="@{/update/{id}(id=${music.id})}">
+            <buton class="btn btn-success">Update</buton>
+        </a></td>
+
+    </tr>
+
+</table>
+<script src="/style/bootstrap/bootstrap.min.js"></script>
+</body>
+</html>
