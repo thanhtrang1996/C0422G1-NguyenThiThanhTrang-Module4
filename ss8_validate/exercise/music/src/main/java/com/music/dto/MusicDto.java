@@ -5,19 +5,23 @@ import org.springframework.validation.Validator;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.Column;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 public class MusicDto implements Validator {
     private int id;
+    @NotBlank
     @Pattern(regexp = "([A-Za-z])+(\\s[A-Za-z])*", message = "Please enter name")
     @Size(min = 1, max = 800)
     @Column(name = "name")
     private String nameOfSong;
+    @NotBlank
     @Pattern(regexp = "(([A-Za-z])+(\\s[A-Za-z])*)", message = "Please enter artist")
     @Size(min = 1, max = 300)
     @Column(name = "artist")
     private String performingArtist;
+    @NotBlank
     @Size(min =1,max = 1000)
     @Pattern(regexp = "^[\\w ,]+$",message = "Please enter kind of music")
     @Column(name = "kind")

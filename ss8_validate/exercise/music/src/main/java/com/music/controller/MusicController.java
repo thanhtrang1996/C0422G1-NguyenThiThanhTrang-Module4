@@ -31,7 +31,7 @@ public class MusicController {
 
     @GetMapping("/create")
     public String showCreate(Model model) {
-        model.addAttribute("music", new Music());
+        model.addAttribute("musicDto", new MusicDto());
         return "/create";
     }
 
@@ -40,25 +40,33 @@ public class MusicController {
                          @Valid MusicDto musicDto,
                          BindingResult bindingResult,
                          RedirectAttributes redirectAttributes,
-                         Model model){
-        new MusicDto().validate(musicDto,bindingResult);
-        if (bindingResult.hasErrors()){
+                         Model model) {
+        new MusicDto().validate(musicDto, bindingResult);
+        if (bindingResult.hasErrors()) {
             return "create";
         }
         Music music = new Music();
-        BeanUtils.copyProperties(musicDto,music);
-        model.addAttribute("musicDto",musicDto);
+        BeanUtils.copyProperties(musicDto, music);
+        model.addAttribute("musicDto", musicDto);
         musicService.save(music);
-        redirectAttributes.addFlashAttribute("msg","Register successfully!");
+        redirectAttributes.addFlashAttribute("msg", "Register successfully!");
         return "redirect:/music";
     }
+
     @GetMapping("/update/{id}")
-    public String showUpdate(@PathVariable Integer id,Model model){
+    public String showUpdate(@PathVariable Integer id, Model model) {
         model.addAttribute("musicDto", musicService.findById(id));
         return "update";
     }
+
     @PostMapping("/update")
-    public String update(@ModelAttribute  Music music){
+    public String update(@ModelAttribute Music music,
+                         @Valid MusicDto musicDto,
+                         BindingResult bindingResult) {
+        new MusicDto().validate(musicDto, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return "update";
+        }
         musicService.save(music);
         return "redirect:/music";
     }

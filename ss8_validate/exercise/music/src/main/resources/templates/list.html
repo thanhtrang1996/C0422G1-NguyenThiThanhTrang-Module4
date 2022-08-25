@@ -8,12 +8,12 @@
 <body>
 <h1 class="text-danger text-center">Music List</h1>
 <span><a href="/create" class="btn btn-info m-3 text-light">Create Music</a></span>
-<form action="/" method="get">
+<form action="/music" method="get">
   <span class="d-flex"><input class="form-control me-2 w-25 " type="text" placeholder="SearchName"
                               name="name" aria-label="Search">
     <button class="btn btn-success" type="submit">Search</button></span>
 </form>
-<h4  class="text-success" th:text="${msg}"></h4>
+<h4 class="text-success" th:text="${msg}"></h4>
 <table class="table table-hover">
     <tr>
         <th>ID</th>
@@ -30,9 +30,7 @@
         <td><a th:href="@{/update/{id}(id=${music.id})}">
             <buton class="btn btn-success">Update</buton>
         </a></td>
-
     </tr>
-
 </table>
 <script src="/style/bootstrap/bootstrap.min.js"></script>
 </body>

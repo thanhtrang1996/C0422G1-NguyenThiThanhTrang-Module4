@@ -8,7 +8,7 @@
 <body>
 <h1 class="text-center text-danger"> Add Music</h1>
 <div class="container">
-    <form action="/create" th:object="${musicDto}" method="post" >
+    <form action="/create" th:object="${musicDto}" method="post">
         <div>
             <label class="form-label">Name Of Song :</label>
             <input class="form-control" type="text" th:field="*{nameOfSong}"/>
