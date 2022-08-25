@@ -8,20 +8,24 @@
 <body>
 <h1 class="text-center text-danger"> Add Music</h1>
 <div class="container">
-    <form action="/create" th:object="${music}" method="post" >
+    <form action="/create" th:object="${musicDto}" method="post" >
         <div>
             <label class="form-label">Name Of Song :</label>
             <input class="form-control" type="text" th:field="*{nameOfSong}"/>
-
+        </div>
+        <div class="mb-4 text-danger" th:errors="*{nameOfSong}">
         </div>
         <div>
             <label class="form-label">Performing Artist :</label>
             <input class="form-control" type="text" th:field="*{performingArtist}"/>
-
+        </div>
+        <div class="mb-4 text-danger" th:errors="*{performingArtist}">
         </div>
         <div>
             <label class="form-label">Kind Of Music :</label>
             <input class="form-control" type="text" th:field="*{kindOfMusic}"/>
+        </div>
+        <div class="mb-4 text-danger" th:errors="*{kindOfMusic}">
         </div>
 
         <div><input type="submit" value="Save" class="m-3 btn btn-danger"></div>

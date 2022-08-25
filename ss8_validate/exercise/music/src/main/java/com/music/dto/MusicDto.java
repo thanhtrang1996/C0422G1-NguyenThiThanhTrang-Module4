@@ -18,7 +18,8 @@ public class MusicDto implements Validator {
     @Size(min = 1, max = 300)
     @Column(name = "artist")
     private String performingArtist;
-
+    @Size(min =1,max = 1000)
+    @Pattern(regexp = "^[\\w ,]+$",message = "Please enter kind of music")
     @Column(name = "kind")
     private String kindOfMusic;
 

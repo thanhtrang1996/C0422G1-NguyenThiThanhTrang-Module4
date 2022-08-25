@@ -9,26 +9,28 @@
 <h1 class="text-center text-danger"> Update Music</h1>
 <div class="container">
     <form action="/update" th:object="${musicDto}" method="post" >
-
         <div>
             <label class="form-label">ID :</label>
-            <input class="form-control" type="text" th:field="*{id}"/>
+            <input class="form-control" readonly type="text" th:field="*{id}"/>
 
         </div>
         <div>
             <label class="form-label">Name Of Song :</label>
             <input class="form-control" type="text" th:field="*{nameOfSong}"/>
-
+        </div>
+        <div class="mb-4 text-danger" th:errors="*{nameOfSong}">
         </div>
         <div>
             <label class="form-label">Performing Artist :</label>
             <input class="form-control" type="text" th:field="*{performingArtist}"/>
-
+        </div>
+        <div class="mb-4 text-danger" th:errors="*{performingArtist}">
         </div>
         <div>
             <label class="form-label">Kind Of Music :</label>
             <input class="form-control" type="text" th:field="*{kindOfMusic}"/>
-
+        </div>
+        <div class="mb-4 text-danger" th:errors="*{kindOfMusic}">
         </div>
         <div><input class="m-3 btn btn-danger" type="submit" value="Save"></div>
     </form>
