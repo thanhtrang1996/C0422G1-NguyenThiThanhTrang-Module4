@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class BookAspect {
     private int count = 1;
-
     @AfterReturning(pointcut = "execution(* com.book.controller.BookController.*(..))")
     public void infoProcessing(JoinPoint joinPoint) {
         String methodName = joinPoint.getSignature().getName();

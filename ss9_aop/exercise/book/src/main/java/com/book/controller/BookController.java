@@ -35,7 +35,7 @@ public class BookController {
         }
         if ((book.getCount()) == 0) {
             model.addAttribute("book", bookService.findById(id));
-            model.addAttribute("msg", "het sach");
+            model.addAttribute("msg", "Out Of Books");
             return "detail";
         }
         book.setCount(book.getCount() - 1);
@@ -47,7 +47,6 @@ public class BookController {
     public String goPay() {
         return "pay";
     }
-
     @PostMapping("/pay")
     public String pay(Model model, @RequestParam Integer id) throws Exception {
         Book book = bookService.findById(id);
@@ -55,12 +54,12 @@ public class BookController {
             throw new Exception();
         }
         if ((book.getCount()) == book.getTotal()) {
-            model.addAttribute("msg", "so sach đã đủ");
+            model.addAttribute("msg1", "Enough books cannot be added");
             return "pay";
         }
         book.setCount(book.getCount() + 1);
         bookService.save(book);
-        model.addAttribute("msg", "tra thanh cong");
+        model.addAttribute("msg2", "Successful payment");
         return "redirect:/book";
     }
 
