@@ -14,7 +14,10 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -44,7 +47,7 @@ public class CustomerController {
         return "customer/listCustomer";
     }
 
-    @GetMapping("/customer/createCustomer")
+    @GetMapping("/createCustomer")
     public String showCreateCustomer(Model model) {
         List<CustomerType> customerTypeList = customerTypeService.findAll();
         model.addAttribute("customerTypeList", customerTypeList);
@@ -64,12 +67,40 @@ public class CustomerController {
         }
         Customer customer = new Customer();
         BeanUtils.copyProperties(customerDto, customer);
-
         List<CustomerType> customerTypeList = customerTypeService.findAll();
         model.addAttribute("customerTypeList", customerTypeList);
         model.addAttribute("customerDto", customerDto);
         customerService.save(customer);
         redirectAttributes.addFlashAttribute("msg", "Register successfully!");
+        return "redirect:/customer";
+    }
+
+    @GetMapping("/updateCustomer")
+    public String showUpdateCustomer(@RequestParam Integer id, Model model) {
+        List<CustomerType> customerTypeList = customerTypeService.findAll();
+        model.addAttribute("customerTypeList", customerTypeList);
+        model.addAttribute("customerDto", customerService.findById(id));
+        return "customer/updateCustomer";
+    }
+
+    @PostMapping("/updateCustomer")
+    public String updateCustomer(@ModelAttribute
+                                 @Valid CustomerDto customerDto,
+                                 BindingResult bindingResult,
+                                 RedirectAttributes redirectAttributes,
+                                 Customer customer) {
+        new CustomerDto().validate(customerDto, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return "customer/updateCustomer";
+        }
+        customerService.save(customer);
+        redirectAttributes.addFlashAttribute("msg1", "Update successfully!");
+        return "redirect:/customer";
+    }
+
+    @GetMapping("/deleteCustomer")
+    public String deleteCustomer(@RequestParam Integer id) {
+        customerService.delete(id);
         return "redirect:/customer";
     }
 }

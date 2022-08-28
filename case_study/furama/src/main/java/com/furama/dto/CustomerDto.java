@@ -13,7 +13,7 @@ public class CustomerDto implements Validator {
 //    @Pattern(regexp = "[A-Z][a-z]+(\\s[A-Z][a-z]+)*",message = "Enter the wrong format .Please enter!!")
     private String name;
     private String dateOfBirth;
-    private String gender;
+    private Integer gender;
     private String idCard;
     private String phoneNumber;
     private String email;
@@ -23,7 +23,7 @@ public class CustomerDto implements Validator {
     }
 
     public CustomerDto(Integer id, CustomerType customerType, String name, String dateOfBirth,
-                       String gender, String idCard, String phoneNumber, String email, String address) {
+                       Integer gender, String idCard, String phoneNumber, String email, String address) {
         this.id = id;
         this.customerType = customerType;
         this.name = name;
@@ -67,11 +67,11 @@ public class CustomerDto implements Validator {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getGender() {
+    public Integer getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(Integer gender) {
         this.gender = gender;
     }
 

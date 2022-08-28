@@ -8,4 +8,8 @@ public interface ICustomerService {
     Page<Customer> findAllByName(Pageable pageable, String keyWork);
 
     void save(Customer customer);
+
+    Customer findById(Integer id);
+
+    void delete(Integer id);
 }
