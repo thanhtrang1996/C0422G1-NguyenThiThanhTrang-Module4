@@ -99,7 +99,6 @@ public class UserDto implements Validator {
     public void validate(Object target, Errors errors) {
         UserDto userDto = (UserDto) target;
         LocalDate now = LocalDate.now();
-        System.out.println(userDto.getAge());
         if (userDto.getAge() != null && !userDto.getAge().equals("")) {
             LocalDate age = LocalDate.parse(userDto.getAge());
             int space = Period.between(age, now).getYears();

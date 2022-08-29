@@ -12,6 +12,8 @@
             <label class="form-label">Name Customer:</label>
             <input type="text" class="form-control" th:field="*{name}">
         </div>
+        <div class="mb-4 text-danger" th:errors="*{name}">
+        </div>
         <div class="mb-3">
             <label class="form-label">Birthday :</label>
             <input type="date" class="form-control" th:field="*{dateOfBirth}">
@@ -29,13 +31,19 @@
             <label class="form-label"> Id_card :</label>
             <input type="text" class="form-control" th:field="*{idCard}">
         </div>
+        <div class="mb-4 text-danger" th:errors="*{idCard}">
+        </div>
         <div class="mb-3">
             <label class="form-label">Phone :</label>
             <input type="text" class="form-control" th:field="*{phoneNumber}">
         </div>
+        <div class="mb-4 text-danger" th:errors="*{phoneNumber}">
+        </div>
         <div class="mb-3">
             <label class="form-label">email :</label>
             <input type="text" class="form-control" th:field="*{email}">
+        </div>
+        <div class="mb-4 text-danger" th:errors="*{email}">
         </div>
         <div class="mb-3">
             <label class="form-label">Customer_type :</label>
@@ -52,7 +60,7 @@
             <input type="text" class="form-control" th:field="*{address}">
         </div>
         <div>
-            <button class="btn btn-success" type="submit">Accept</button>
+            <button class="btn btn-success" type="submit">Save</button>
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
             </button>
         </div>

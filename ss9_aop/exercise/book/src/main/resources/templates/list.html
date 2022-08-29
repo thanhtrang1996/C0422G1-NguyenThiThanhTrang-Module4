@@ -7,9 +7,13 @@
 </head>
 <body>
 <h1 class="text-danger text-center">Book List</h1>
-<td><a href= "/pay"  class="btn btn-info m-3 text-light">
-    Pay Book
-</a></td>
+<form action="/pay"  method="post">
+    <div >
+      <input class="form-control"  placeholder="Enter ID" type="text" name = "id" />
+          <input class="m-3 btn btn-danger" type="submit" value="Pay">
+    </div>
+    <h3 th:text="${msg1}" class="text-primary"></h3>
+</form>
 <h3 th:text="${msg2}" class="text-danger"></h3>
 <table class="table table-hover">
 <tr>

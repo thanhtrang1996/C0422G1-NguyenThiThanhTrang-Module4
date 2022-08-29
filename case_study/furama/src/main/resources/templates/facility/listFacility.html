@@ -8,34 +8,60 @@
     <div th:replace="~{header::navbar}"></div>
     <h1 class="text-center text-primary m-5">Facility List</h1>
     <div class="row">
-        <div class="col-lg-4"><a href="/createFacility" class="btn btn-success">Create Facility</a></div>
+        <div class="col-lg-3"><a href="/createFacility" class="btn btn-success">Create Facility</a></div>
+        <div class="col-lg-3"><a th:href="@{/facility(sort='name', name=${keyWork})}" type="submit" class="btn btn-info ">Sort By Name</a></div>
+        <div class="col-lg-6 align-items-lg-end">
+            <form action="/facility" class="d-flex justify-content-lg-end">
+                <input class="form-control me-2 w-50" type="text" placeholder="SearchName"
+                       name="key" th:value="${keyWork}" aria-label="Search">
+                <button class="btn btn-success" value="search" type="submit">Search</button>
+            </form>
     </div>
     <div class="table-responsive">
+        <h3 th:text="${msg}" class="text-primary"></h3>
+        <h3 th:text="${msg1}" class="text-danger"></h3>
         <table class="table table-hover" >
             <thead>
             <tr>
                 <th>No.</th>
+                <th>Id</th>
                 <th>Name</th>
                 <th>Area</th>
                 <th>Cost</th>
                 <th>Max_people</th>
                 <th>Rent_type</th>
                 <th>FacilityType</th>
-                <th>StandardRoom</th>
-                <th>DescriptionOtherConvenience</th>
-                <th>PoolArea</th>
-                <th>NumberOfFloors</th>
-                <th>FacilityFree</th>
                 <th>Update</th>
                 <th>Delete</th>
             </tr>
             </thead>
+            <tbody>
+            <tr th:each="facility,loop:${facilityPage}">
+                <td th:text="${loop.count + facilityPage.size * facilityPage.number}"></td>
+                <td th:text="${facility.id}"></td>
+                <td th:text="${facility.name}"></td>
+                <td th:text="${facility.area}"></td>
+                <td th:text="${facility.cost}"></td>
+                <td th:text="${facility.maxPeople}"></td>
+                <td th:text="${facility.rentType.name}"></td>
+                <td th:text="${facility.facilityType.name}"></td>
+                <td>
+                    <a th:href="@{updateFacility(id=${facility.id})}" class="btn btn-warning">Update</a>
+                </td>
+                <td>
+                    <button th:attr="onclick=|infoToModal('${facility.id}','${facility.name}')|" class="btn btn-danger"
+                            type="button" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+            </tbody>
         </table>
     </div>
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
         <div class="modal-dialog">
-            <form action="/delete" method="get">
+            <form action="/deleteFacility" method="get">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h2 class="modal-title text-danger" id="exampleModalLabel">Facility</h2>
@@ -51,16 +77,38 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" name="action" value="delete">Yes</button>
+                        <button type="submit" class="btn btn-primary" >Yes</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
+    <div class="d-flex justify-content-end ">
+        <ul class="pagination">
+            <li class="page-item disabled" th:if="${facilityPage.number == 0}">
+                <a class="page-link" href="">Previous</a>
+            </li>
+            <li class="page-item" th:if="${facilityPage.number > 0}">
+                <a class="page-link"
+                   th:href="@{/facility(page=${facilityPage.number - 1}, sort=${sortValue}, name=${keyWork})}">Previous</a>
+            </li>
+            <li class="page-item disabled">
+                <a class="page-link" href=""><span th:text="${facilityPage.number + 1}"></span> / <span
+                        th:text="${facilityPage.totalPages}"></span></a>
+            </li>
+            <li class="page-item disabled" th:if="${facilityPage.number >= facilityPage.totalPages - 1}">
+                <a class="page-link" href="">Next</a>
+            </li>
+            <li class="page-item" th:if="${facilityPage.number < facilityPage.totalPages - 1}">
+                <a class="page-link"
+                   th:href="@{/facility(page=${facilityPage.number + 1}, sort=${sortValue}, name=${keyWork})}">Next</a>
+            </li>
+        </ul>
+    </div>
 </div>
 <script src="../style/bootstrap/bootstrap.bundle.min.js"></script>
 <script>
-    function showMe(id, name) {
+    function infoToModal(id, name) {
         document.getElementById("deleteId").value = id;
         document.getElementById("deleteName").value = name;
     }

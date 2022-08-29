@@ -14,10 +14,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -63,12 +60,12 @@ public class CustomerController {
                                  Model model) {
         new CustomerDto().validate(customerDto, bindingResult);
         if (bindingResult.hasErrors()) {
+            List<CustomerType> customerTypeList = customerTypeService.findAll();
+            model.addAttribute("customerTypeList", customerTypeList);
             return "customer/createCustomer";
         }
         Customer customer = new Customer();
         BeanUtils.copyProperties(customerDto, customer);
-        List<CustomerType> customerTypeList = customerTypeService.findAll();
-        model.addAttribute("customerTypeList", customerTypeList);
         model.addAttribute("customerDto", customerDto);
         customerService.save(customer);
         redirectAttributes.addFlashAttribute("msg", "Register successfully!");
@@ -88,9 +85,11 @@ public class CustomerController {
                                  @Valid CustomerDto customerDto,
                                  BindingResult bindingResult,
                                  RedirectAttributes redirectAttributes,
-                                 Customer customer) {
+                                 Customer customer, Model model) {
         new CustomerDto().validate(customerDto, bindingResult);
         if (bindingResult.hasErrors()) {
+            List<CustomerType> customerTypeList = customerTypeService.findAll();
+            model.addAttribute("customerTypeList", customerTypeList);
             return "customer/updateCustomer";
         }
         customerService.save(customer);
@@ -102,5 +101,10 @@ public class CustomerController {
     public String deleteCustomer(@RequestParam Integer id) {
         customerService.delete(id);
         return "redirect:/customer";
+    }
+
+    @ExceptionHandler(value = Exception.class)
+    public String error() {
+        return "error";
     }
 }

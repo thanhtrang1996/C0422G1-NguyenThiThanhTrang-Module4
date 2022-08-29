@@ -8,36 +8,52 @@ public class Facility {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private String name;
+
     private String area;
+
     private String cost;
+
     private String maxPeople;
-    private String rentTypeId;
-    private String facilityTypeId;
+
     private String standardRoom;
+
     private String descriptionOtherConvenience;
+
     private String poolArea;
+
     private String numberOfFloors;
+
     private String facilityFree;
+
+    @ManyToOne
+    @JoinColumn(name = "rent_type", referencedColumnName = "id")
+    private RentType rentType;
+
+    @ManyToOne
+    @JoinColumn(name = "facility_type", referencedColumnName = "id")
+    private FacilityType facilityType;
 
     public Facility() {
     }
 
-    public Facility(Integer id, String name, String area, String cost, String maxPeople,
-                    String rentTypeId, String facilityTypeId, String standardRoom,
-                    String descriptionOtherConvenience, String poolArea, String numberOfFloors, String facilityFree) {
+    public Facility(Integer id, String name, String area, String cost,
+                    String maxPeople, String standardRoom, String descriptionOtherConvenience,
+                    String poolArea, String numberOfFloors, String facilityFree,
+                    RentType rentType, FacilityType facilityType) {
         this.id = id;
         this.name = name;
         this.area = area;
         this.cost = cost;
         this.maxPeople = maxPeople;
-        this.rentTypeId = rentTypeId;
-        this.facilityTypeId = facilityTypeId;
         this.standardRoom = standardRoom;
         this.descriptionOtherConvenience = descriptionOtherConvenience;
         this.poolArea = poolArea;
         this.numberOfFloors = numberOfFloors;
         this.facilityFree = facilityFree;
+        this.rentType = rentType;
+        this.facilityType = facilityType;
     }
 
     public Integer getId() {
@@ -80,22 +96,6 @@ public class Facility {
         this.maxPeople = maxPeople;
     }
 
-    public String getRentTypeId() {
-        return rentTypeId;
-    }
-
-    public void setRentTypeId(String rentTypeId) {
-        this.rentTypeId = rentTypeId;
-    }
-
-    public String getFacilityTypeId() {
-        return facilityTypeId;
-    }
-
-    public void setFacilityTypeId(String facilityTypeId) {
-        this.facilityTypeId = facilityTypeId;
-    }
-
     public String getStandardRoom() {
         return standardRoom;
     }
@@ -134,5 +134,21 @@ public class Facility {
 
     public void setFacilityFree(String facilityFree) {
         this.facilityFree = facilityFree;
+    }
+
+    public RentType getRentType() {
+        return rentType;
+    }
+
+    public void setRentType(RentType rentType) {
+        this.rentType = rentType;
+    }
+
+    public FacilityType getFacilityType() {
+        return facilityType;
+    }
+
+    public void setFacilityType(FacilityType facilityType) {
+        this.facilityType = facilityType;
     }
 }
