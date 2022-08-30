@@ -13,12 +13,14 @@
     <tr class="text-primary">
         <th>Name</th>
         <th>Price</th>
+        T
         <th>Add To Cart</th>
     </tr>
     <th:block th:each="product:${products}">
         <tr>
             <td th:text="${product.name}"></td>
             <td th:text="${product.price}"></td>
+            <td></td>
             <td><a th:href="@{/add/__${product.id}__(action='list')}">Add To Cart</a></td>
         </tr>
     </th:block>

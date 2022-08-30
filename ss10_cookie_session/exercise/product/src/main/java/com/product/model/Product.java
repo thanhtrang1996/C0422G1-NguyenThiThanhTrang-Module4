@@ -11,15 +11,25 @@ public class Product {
     private String name;
     private double price;
     private String description;
+    private String link;
 
     public Product() {
     }
 
-    public Product(Integer id, String name, double price, String description) {
+    public Product(Integer id, String name, double price, String description, String link) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.description = description;
+        this.link = link;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 
     public Integer getId() {
