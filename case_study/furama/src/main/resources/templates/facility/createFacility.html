@@ -8,8 +8,8 @@
 <div class="container">
     <div th:replace="~{header::navbar}"></div>
     <div >
-        <form action="/createFacility" method="post" th:object="${facilityDto}">
-            <div class="mb-3">
+        <form action="/createFacility" method="post" th:object="${facilityDto}" class="shadow-lg p-5">
+            <div class="mb-6">
                 <select onchange="choose()" id="select" class="form-select" >
                     <option>Choose Create new Facility</option>
                     <option value="villa">Villa</option>
@@ -91,7 +91,6 @@
 <script>
     function choose() {
         let result = document.getElementById("select").value;
-        console.log(result)
         switch (result) {
             case "room":
                 document.getElementById("add").style.display = "none";

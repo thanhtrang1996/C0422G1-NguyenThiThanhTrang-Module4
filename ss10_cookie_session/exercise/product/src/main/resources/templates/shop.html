@@ -7,74 +7,17 @@
 </head>
 <body>
 <div>
-    <a href="/shoppingCart" class="btn btn-danger ">Your cart</a>
+    <a href="/shoppingCart" class="btn btn-success ">Your cart</a>
 </div>
-<table  class="table table-hover">
-    <tr class="text-primary">
-        <th>Name</th>
-        <th>Price</th>
-        T
-        <th>Add To Cart</th>
-    </tr>
-    <th:block th:each="product:${products}">
-        <tr>
-            <td th:text="${product.name}"></td>
-            <td th:text="${product.price}"></td>
-            <td></td>
-            <td><a th:href="@{/add/__${product.id}__(action='list')}">Add To Cart</a></td>
-        </tr>
-    </th:block>
-</table>
-<div class="container-fluid">
+<div class="container text-center">
     <div class="row">
-        <div class="col-lg-12 text-center">
-            <h1>Danh sách sản phẩm</h1>
-        </div>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <div class="card" style="width: 18rem;">
-                    <img src="https://s3.eu-west-2.amazonaws.com/img.creativepool.com/files/candidate/portfolio/full/865721.jpg"
-                         class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Sản phẩm 1</h5>
-                        <p class="card-text text-danger">350.000 đ</p>
-                        <a href="#" class="btn btn-primary">Xem sản phẩm</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card" style="width: 18rem;">
-                    <img src="https://s3.eu-west-2.amazonaws.com/img.creativepool.com/files/candidate/portfolio/full/865718.jpg"
-                         class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Sản phẩm 2</h5>
-                        <p class="card-text text-danger">400.000 đ</p>
-                        <a href="#" class="btn btn-primary">Xem sản phẩm</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card" style="width: 18rem;">
-                    <img src="https://s3.eu-west-2.amazonaws.com/img.creativepool.com/files/candidate/portfolio/full/865720.jpg"
-                         class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Sản phẩm 3</h5>
-                        <p class="card-text text-danger">500.000 đ</p>
-                        <a href="#" class="btn btn-primary">Xem sản phẩm</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card" style="width: 18rem;">
-                    <img src="https://s3.eu-west-2.amazonaws.com/img.creativepool.com/files/candidate/portfolio/full/865719.jpg"
-                         class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Sản phẩm 4</h5>
-                        <p class="card-text text-danger">600.000 đ</p>
-                        <a href="#" class="btn btn-primary">Xem sản phẩm</a>
-                    </div>
+        <div class="col"  th:each="product:${products}">
+            <div class="card d-flex justify-content-center">
+                <img th:src="@{${product.link}}" class="w-100 justify-content-center"  >
+                <div class="card-body">
+                    <h5 class="card-title"  th:text="${product.name}"></h5>
+                    <h4 class="card-text" th:text="${product.price}" ></h4>
+                    <a th:href="@{/add/__${product.id}__(action='list')}" class="btn btn-success">Add To Cart</a>
                 </div>
             </div>
         </div>
