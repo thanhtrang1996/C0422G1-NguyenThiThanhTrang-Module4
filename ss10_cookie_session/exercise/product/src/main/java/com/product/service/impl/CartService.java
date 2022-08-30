@@ -9,6 +9,23 @@ import java.util.Map;
 @Service
 public class CartService {
 
+
+    public void countProductQuantity( Cart cart1) {
+        Integer productQuantity = 0;
+        for (Map.Entry<Product, Integer> entry : cart1.getProducts().entrySet()) {
+            productQuantity += entry.getValue();
+        }
+        cart1.setProductQuantity(productQuantity);
+    }
+    public void countTotalPayment(Cart cart1) {
+        float payment = 0;
+        for (Map.Entry<Product, Integer> entry : cart1.getProducts().entrySet()) {
+            payment += entry.getKey().getPrice() * (float) entry.getValue();
+        }
+        cart1.setCountTotalPayment(payment);
+    }
+
+
     private boolean checkItemInCart(Product product, Cart cart1) {
         for (Map.Entry<Product, Integer> entry : cart1.getProducts().entrySet()) {
             if (entry.getKey().equals(product)) {
@@ -46,5 +63,13 @@ public class CartService {
                 cart1.getProducts().remove(product);
             }
         }
+    }
+
+    public void clearCart(Cart cart){
+        cart.getProducts().clear();
+    }
+    public void updateCart( Cart cart){
+        countProductQuantity(cart);
+        countTotalPayment(cart);
     }
 }

@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="../style/bootstrap/bootstrap.min.css">
 </head>
 <body>
+<div class="container">
 <div>
     <a href="/shop" class="btn btn-info m-3">Shop</a>
 </div>
@@ -31,12 +32,36 @@
         <tr>
             <td class="text-danger"><h4>Total</h4></td>
             <td></td>
-            <td th:text="${cart.countTotalPayment()}"></td>
+            <td th:text="${cart.getCountTotalPayment()}"></td>
         </tr>
+        <tr>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Payment
+            </button>
+           </tr>
     </table>
 </form>
+    <form action="/payment" method="get">
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Total money</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <b th:text="${cart.getCountTotalPayment()}"></b>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" >Success</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 <h3>Total Items: <span th:text="${cart.countItemQuantity()}"></span></h3>
-<h3>Total Products: <span th:text="${cart.countProductQuantity()}"></span></h3>
+<h3>Total Products: <span th:text="${cart.getProductQuantity()}"></span></h3>
+</div>
 <script src="../style/bootstrap/bootstrap.min.js"></script>
 </body>
 </html>

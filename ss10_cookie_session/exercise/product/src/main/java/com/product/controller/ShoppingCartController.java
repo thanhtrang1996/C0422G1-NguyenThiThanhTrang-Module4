@@ -16,7 +16,8 @@ public class ShoppingCartController {
     }
 
     @GetMapping("/shoppingCart")
-    public String showCart(@SessionAttribute("cartService") Cart cart, Model model) {
+    public String showCart(@SessionAttribute("cartService") Cart cart, Model model
+    ) {
         model.addAttribute("cart", cart);
         return "/cart";
     }

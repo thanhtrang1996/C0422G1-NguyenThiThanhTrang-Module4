@@ -15,7 +15,7 @@
             <div class="card d-flex justify-content-center">
                 <img th:src="@{${product.link}}" class="w-100 justify-content-center"  >
                 <div class="card-body">
-                    <h5 class="card-title"  th:text="${product.name}"></h5>
+                    <h5 class="card-title" style="color: #F806F8"  th:text="${product.name}"></h5>
                     <h4 class="card-text" th:text="${product.price}" ></h4>
                     <a th:href="@{/add/__${product.id}__(action='list')}" class="btn btn-success">Add To Cart</a>
                 </div>

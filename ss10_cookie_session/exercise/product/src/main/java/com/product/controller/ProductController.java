@@ -32,20 +32,31 @@ public class ProductController {
     }
 
     @GetMapping("/add/{id}")
-    public String addToCart(@PathVariable Integer id, @SessionAttribute("cartService") Cart cart, @RequestParam("action") String action) {
+    public String addToCart(@PathVariable Integer id, @SessionAttribute("cartService") Cart cart,
+                            @RequestParam("action") String action) {
         Optional<Product> productOptional = productService.findById(id);
+        cartService.countTotalPayment(cart);
         if (!productOptional.isPresent()) {
             return "error";
         }
         if (action.equals("show")) {
             cartService.addProduct(productOptional.get(), cart);
+            cartService.updateCart(cart);
             return "redirect:/shoppingCart";
         }
         if (action.equals("preview")) {
             cartService.preQuantity(productOptional.get(), cart);
+            cartService.updateCart(cart);
             return "redirect:/shoppingCart";
         }
         cartService.addProduct(productOptional.get(), cart);
+        cartService.updateCart(cart);
+        return "redirect:/shop";
+    }
+    @GetMapping("/payment")
+    public String payment (@SessionAttribute("cartService") Cart cart){
+        cartService.clearCart(cart);
+        cartService.updateCart(cart);
         return "redirect:/shop";
     }
 }

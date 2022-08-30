@@ -5,8 +5,26 @@ import java.util.Map;
 
 public class Cart {
     private Map<Product, Integer> products = new HashMap<>();
+    private Integer productQuantity;
+    private float countTotalPayment;
+
+    public float getCountTotalPayment() {
+        return countTotalPayment;
+    }
+
+    public void setCountTotalPayment(float countTotalPayment) {
+        this.countTotalPayment = countTotalPayment;
+    }
 
     public Cart() {
+    }
+
+    public Integer getProductQuantity() {
+        return productQuantity;
+    }
+
+    public void setProductQuantity(Integer productQuantity) {
+        this.productQuantity = productQuantity;
     }
 
     public Cart(Map<Product, Integer> products) {
@@ -17,23 +35,10 @@ public class Cart {
         return products;
     }
 
-    public Integer countProductQuantity() {
-        Integer productQuantity = 0;
-        for (Map.Entry<Product, Integer> entry : products.entrySet()) {
-            productQuantity += entry.getValue();
-        }
-        return productQuantity;
-    }
 
     public Integer countItemQuantity() {
         return products.size();
     }
 
-    public Float countTotalPayment() {
-        float payment = 0;
-        for (Map.Entry<Product, Integer> entry : products.entrySet()) {
-            payment += entry.getKey().getPrice() * (float) entry.getValue();
-        }
-        return payment;
-    }
+
 }
