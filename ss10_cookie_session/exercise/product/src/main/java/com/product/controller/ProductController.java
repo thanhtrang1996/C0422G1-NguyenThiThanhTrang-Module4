@@ -43,6 +43,7 @@ public class ProductController {
             cartService.addProduct(productOptional.get(), cart);
             cartService.updateCart(cart);
             return "redirect:/shoppingCart";
+
         }
         if (action.equals("preview")) {
             cartService.preQuantity(productOptional.get(), cart);

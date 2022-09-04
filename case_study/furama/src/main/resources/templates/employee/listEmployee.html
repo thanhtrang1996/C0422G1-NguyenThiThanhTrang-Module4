@@ -1,4 +1,4 @@
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Employee List</title>
     <link rel="stylesheet" href="../style/bootstrap/bootstrap.min.css">
@@ -9,13 +9,12 @@
     <div class="row">
         <div class="col-lg-4">
             <div class="container">
-                <form action="/updateEmployee" method="post">
+                <form action="/updateEmployee" th:object="${employee}" method="post">
 
                     <button type="button" data-bs-toggle="modal" class="btn btn-success"
                             data-bs-target="#exampleModalEmployee">
                         Update Employee
                     </button>
-
                     <div class="modal fade" id="exampleModalEmployee" tabindex="-1" aria-labelledby="exampleModalLabel1"
                          aria-hidden="true">
                         <div class="modal-dialog">
@@ -99,7 +98,7 @@
             </div>
         </div>
         <div class="col-lg-8">
-            <form action="/createEmployee" method="post">
+            <form action="/createEmployee" th:object="${employee}" method="post">
 
                 <button type="button" data-bs-toggle="modal" class=" btn btn-success"
                         data-bs-target="#exampleModalEmployee2">
@@ -115,62 +114,63 @@
                                         aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <p class="h3 text-warning fw-bold">Do you want create Employee ?</p>
-                                <input type="hidden" name="action" readonly>
+                                <p class="h3 text-warning fw-bold">Do you want Create Employee ?</p>
+
+
                                 <div>
                                     <div>
-                                        <input type="text" name="name" placeholder="Name" class="form-control">
+                                        <label class="form-label">Name Employee:</label>
+                                        <input type="text"  th:field="*{name}" class="form-control">
                                     </div>
                                     <br>
                                     <div>
-                                        <input type="text" name="date_of_birth" placeholder="Date_of_birth"
+                                        <label class="form-label">Date Of Birth:</label>
+                                        <input type="date"  th:field="*{dateOfBirth}"
                                                class="form-control">
                                     </div>
                                     <br>
                                     <div>
-                                        <input type="text" name="id_card" placeholder="Id_card" class="form-control">
+                                        <label class="form-label">ID Card Employee:</label>
+                                        <input type="text" th:field="*{idCard}" class="form-control">
                                     </div>
                                     <br>
                                     <div>
-                                        <input type="text" name="email" placeholder="Email" class="form-control">
+                                        <label class="form-label">Email Employee:</label>
+                                        <input type="text" th:field="*{email}" class="form-control">
                                     </div>
                                     <br>
                                     <div>
                                         <div>
-                                            <select>
-                                                <option>Choose Education_degree</option>
-                                                <option>Trung cấp</option>
-                                                <option>Cao đẳng</option>
-                                                <option>Đại học</option>
-                                                <option>Sau đại học</option>
+                                            <label class="form-label">Education Degree Employee:</label>
+                                            <select class="form-select" th:field="*{educationDegree}">
+                                                <option th:each="education :${educationDegreeList}"
+                                                th:value="${education.id}"
+                                                th:text="${education.name}" class="form-control"></option>
                                             </select>
                                         </div>
                                     </div>
                                     <br>
                                     <div>
-                                        <select>
-                                            <option>Choose Position</option>
-                                            <option>Lễ tân</option>
-                                            <option>Phục vụ</option>
-                                            <option>Chuyên viên</option>
-                                            <option>Giám sát</option>
-                                            <option>Quản lý</option>
-                                            <option>Giám đốc</option>
+                                        <label class="form-label">Position Employee:</label>
+                                        <select class="form-select" th:field ="*{position}">
+                                            <option th:each="position : ${positionList}"
+                                            th:value="${position.id}"
+                                            th:text="${position.name}" class="form-control"></option>
                                         </select>
                                     </div>
                                 </div>
                                 <br>
                                 <div>
+                                    <label class="form-label">Salary Employee:</label>
                                     <input type="text" name="salary" placeholder="Salary" class="form-control">
                                 </div>
                                 <br>
                                 <div>
-                                    <select>
-                                        <option>Choose Division</option>
-                                        <option>Sale – Marketing</option>
-                                        <option>Hành Chính</option>
-                                        <option>Phục vụ</option>
-                                        <option>Quản lý</option>
+                                    <label class="form-label">Division Employee:</label>
+                                    <select class="form-select" th:field="*{division}">
+                                        <option th:each="division :${divisionList}"
+                                        th:value="${division.id}"
+                                        th:text="${division.name}" class="form-control"></option>
                                     </select>
                                 </div>
                             </div>
@@ -185,32 +185,35 @@
             </form>
         </div>
     </div>
-    <table class="table table-hover" id="myTable">
+    <table class="table table-hover" >
         <thead>
-        <tr>
-            <th>no.</th>
-            <th>name</th>
-            <th>date_of_birth</th>
-            <th>id_card</th>
-            <th>email</th>
-            <th>education_degree_id</th>
-            <th>position_id</th>
-            <th>salary</th>
-            <th>delete</th>
+        <tr >
+            <th>No.</th>
+            <th>Name</th>
+            <th>Date Of Birth</th>
+            <th>Id Card</th>
+            <th>Email</th>
+            <th>Education Degree</th>
+            <th>Division</th>
+            <th>Position</th>
+            <th>Salary</th>
+            <th>Delete</th>
         </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>${item}</td>
-                <td>trang</td>
-                <td>12-11-1998</td>
-                <td>232334</td>
-                <td>ddd@aba</td>
-                <td>dai hoc</td>
-                <td>quan ly</td>
-                <td>45114141</td>
+            <tr th:each="employee,loop : ${employeeList}">
+                <td th:text="${loop.count }"></td>
+                <td th:text="${employee.name}"></td>
+                <td th:text="${employee.dateOfBirth}"></td>
+                <td th:text="${employee.idCard}"></td>
+                <td th:text="${employee.email}"></td>
+                <td th:text="${employee.educationDegree.name}"></td>
+                <td th:text="${employee.division.name}"></td>
+                <td th:text="${employee.position.name}"></td>
+                <td th:text="${employee.salary}"></td>
+
                 <td>
-                    <button onclick="showInfoDelete(${item},'name')" class="btn btn-danger"
+                    <button th:onclick="'javascript:showInfoDelete('${employee.id}','${employee.name}')'" class="btn btn-danger"
                             type="button" data-bs-toggle="modal" data-bs-target="#deleteModal">
                         Delete
                     </button>
@@ -242,9 +245,9 @@
     </table>
 </div>
 <script>
-    function showInfoDelete(Id, name) {
-        document.getElementById("confirm").innerHTML = "<a href='/employee" + Id + "'>delete</a>";
-        document.getElementById("payload").innerHTML = `<span>Bạn có muốn xoá nhân viên có tên là ` + name + ` không?</span>`
+    function showInfoDelete(id, name) {
+        document.getElementById("confirm").value = id;
+        document.getElementById("payload").value = name;
     }
 </script>
 <script src="../style/bootstrap/bootstrap.bundle.min.js"></script>
