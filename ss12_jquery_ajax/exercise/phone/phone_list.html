@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>List Smartphone</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<button onclick="showForm()" class="btn btn-primary"> Create Phone</button>
+<div id="formCreate">
+    <form>
+        <div><label class="form-label">Name Phone</label>
+            <input type="text" class="form-control" id="name">
+        </div>
+        <div><label class="form-label">Producer</label>
+            <input type="text" class="form-control" id="producer">
+        </div>
+        <div><label class="form-label">Model</label>
+            <input type="text" class="form-control" id="model">
+        </div>
+        <div>
+            <label class="form-label">Price</label>
+            <input type="text" class="form-control" id="price">
+        </div>
+        <button id="save" class="btn btn-danger">Save</button>
+    </form>
+    <button onclick="showList()" class="btn btn-success">Back</button>
+</div>
+<div id="formUpdate">
+    <form>
+        <div><label class="form-label">Id Phone</label>
+            <input type="text"class="form-control" readonly name="id" id="idUpdate"></div>
+        <div><label class="form-label">Name Phone</label>
+            <input type="text" class="form-control" id="nameUpdate">
+        </div>
+        <div>
+            <label class="form-label">Producer</label>
+            <input type="text" class="form-control" id="producerUpdate"></div>
+        <div><label class="form-label">Model</label>
+            <input type="text" class="form-control" id="modelUpdate"></div>
+        <div><label class="form-label">Price</label>
+            <input type="text" class="form-control" id="priceUpdate">
+        </div>
+        <button id="saveUpdate" class="btn btn-danger">Save</button>
+    </form>
+    <button onclick="showListUpdate()" class="btn btn-success">Back</button>
+</div>
+<div id="listTable">
+    <h1 id="title" class="text-danger text-center">Phone List</h1>
+    <table class="table table-hover">
+        <tr>
+            <th>No.</th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Producer</th>
+            <th>Model</th>
+            <th>Price</th>
+            <th id="update">Update</th>
+            <th id="delete">Delete</th>
+        </tr>
+        <tbody id="tableContent">
+        </tbody>
+    </table>
+    <nav aria-label="..." class="d-flex justify-content-center">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" href="#" id="aPrevious">Previous</a>
+            </li>
+            <li class="page-item disabled">
+                <a class="page-link" id="pageNumber">1/2
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#" id="aNext">Next</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <form >
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title text-danger" id="exampleModalLabel">Phone</h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body ">
+                        <b>ID Phone :</b>
+                        <input type="text" readonly name="id" id="deleteId" class="form-control"><br>
+                        <b>Name Phone :</b>
+                        <input type="text" readonly name="name" id="deleteName" class="form-control"><br>
+                        <h3 class="text-danger">Are you sure want delete </h3>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button id="deletePhone" class="btn btn-primary" >Yes</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="jquery-3.6.0.min.js"></script>
+<script>
+    $("#formCreate").hide();
+    $("#formUpdate").hide();
+
+    let curPage = 0;
+
+    function getPhonePage(pageNumber) {
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:8080/smartphones/list?page=" + pageNumber,
+            success: function (phonePage) {
+                let phoneList = phonePage.content;
+                let htmlStr = '';
+                for (let i = 0; i < phoneList.length; i++) {
+
+                    htmlStr += `<tr>
+                        <td>${i + 1}</td>
+                        <td>${phoneList[i].id}</td>
+                        <td>${phoneList[i].name}</td>
+                        <td>${phoneList[i].producer}</td>
+                        <td>${phoneList[i].model}</td>
+                        <td>${phoneList[i].price}</td>
+                        <td>
+                            <a href="#"  class="btn btn-success" onclick="update('${phoneList[i].id}')">Update</a>
+                        </td>
+
+                         <td>
+                <button onclick="infoToModal('${phoneList[i].id}','${phoneList[i].name}')" class="btn btn-danger"
+                        type="button" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                    Delete
+                </button>
+            </td>
+                    </tr>`;
+                }
+                $("#tableContent").html(htmlStr);
+                if (phonePage.content !== null) {
+                    return true;
+                } else {
+                    return false;
+                }
+            },
+            error: function (resultError) {
+            }
+        });
+    }
+
+    $("#aPrevious").click(function () {
+        getPhonePage(--curPage);
+    });
+
+
+    $("#aNext").click(function () {
+        getPhonePage(++curPage);
+    });
+
+    getPhonePage(curPage);
+    $("#showCreate").click(function () {
+        $("#formCreate").show();
+    });
+
+    function showForm() {
+        $("#formCreate").show();
+        $("#listTable").hide();
+    }
+
+    function showList() {
+        $("#formCreate").hide();
+        $("#listTable").show();
+    }
+
+    function update(id) {
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "GET",
+            url: "http://localhost:8080/smartphones/update/" + id,
+            success: function (phone) {
+                $('#idUpdate').val(phone.id);
+                $('#nameUpdate').val(phone.name);
+                $('#producerUpdate').val(phone.producer);
+                $('#modelUpdate').val(phone.model);
+                $('#priceUpdate').val(phone.price);
+            },
+            error: function (resultError) {
+                alert('error');
+            }
+        });
+        $("#formUpdate").show();
+        $("#listTable").hide();
+    }
+
+    function showListUpdate() {
+        $("#formUpdate").hide();
+        $("#listTable").show();
+    }
+
+    $("#save").click(function () {
+        let name = $('#name').val();
+        let producer = $('#producer').val();
+        let model = $('#model').val();
+        let price = $('#price').val();
+        let newSmartphone = {
+            name: name,
+            producer: producer,
+            model: model,
+            price: price
+        };
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "POST",
+            data: JSON.stringify(newSmartphone),
+            url: "http://localhost:8080/smartphones/create",
+            success: function (phonePage) {
+            },
+            error: function (resultError) {
+                alert('error');
+            }
+        });
+    })
+    $("#saveUpdate").click(function () {
+        let id = $('#idUpdate').val();
+        let name = $('#nameUpdate').val();
+        let producer = $('#producerUpdate').val();
+        let model = $('#modelUpdate').val();
+        let price = $('#priceUpdate').val();
+        let smartphone = {
+            id: id,
+            name: name,
+            producer: producer,
+            model: model,
+            price: price
+        };
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "PATCH",
+            data: JSON.stringify(smartphone),
+            url: "http://localhost:8080/smartphones/update",
+            success: function (phonePage) {
+            },
+            error: function (resultError) {
+                alert('error');
+            }
+        });
+    })
+
+    function infoToModal(id,name) {
+        $('#deleteId').val(id);
+        $('#deleteName').val(name);
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "POST",
+            url: "http://localhost:8080/smartphones/delete/" + id,
+            success: function (phonePage) {
+            },
+            error: function (resultError) {
+                alert('error');
+            }
+        });
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
+</html>
+

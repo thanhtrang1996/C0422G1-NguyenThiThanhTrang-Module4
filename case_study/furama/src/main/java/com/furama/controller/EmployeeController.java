@@ -49,11 +49,5 @@ public class EmployeeController {
         model.addAttribute("employeeList",employeeList);
         return "employee/listEmployee";
     }
-    @PostMapping("/createEmployee")
-    public String showCreate(@ModelAttribute
-                             Employee employee){
-       employeeService.save(employee);
-        return "employee/listEmployee";
 
-    }
 }
