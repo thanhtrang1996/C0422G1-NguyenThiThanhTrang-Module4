@@ -38,7 +38,7 @@ public class SmartphoneController {
     }
 
     @GetMapping("/update/{id}")
-    public ResponseEntity<?> goUpdate(@PathVariable Integer id) {
+    public ResponseEntity<Smartphone> goUpdate(@PathVariable Integer id) {
         Smartphone smartphone = smartphoneService.findById(id);
         return new ResponseEntity<>(smartphone, HttpStatus.OK);
     }
