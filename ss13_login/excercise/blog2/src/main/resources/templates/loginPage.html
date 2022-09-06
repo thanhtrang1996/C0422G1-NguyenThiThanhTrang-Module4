@@ -4,12 +4,10 @@
     <title>Login</title>
 </head>
 <body>
-<!-- Include _menu.html -->
-<th:block th:include="/_menu"></th:block>
+<th:block th:include="/_menuPage"></th:block>
 
 <h1>Login</h1>
 
-<!-- /login?error=true -->
 <div th:if="${#request.getParameter('error') == 'true'}"
      style="color:red;margin:10px 0px;">
     Login Failed!!!<br />

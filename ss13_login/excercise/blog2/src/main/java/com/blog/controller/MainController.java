@@ -1,6 +1,5 @@
 package com.blog.controller;
 
-
 import java.security.Principal;
 
 import com.blog.util.WebUtils;
@@ -73,7 +72,6 @@ public class MainController {
             String message = "Hi " + principal.getName() //
                     + "<br> You do not have permission to access this page!";
             model.addAttribute("message", message);
-
         }
 
         return "403Page";

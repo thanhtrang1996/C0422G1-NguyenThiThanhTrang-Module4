@@ -1,6 +1,5 @@
 package com.blog.service.impl;
 
-
 import com.blog.model.AppUser;
 import com.blog.model.UserRole;
 import com.blog.repository.IAppUserRepository;
@@ -37,13 +36,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         System.out.println("Found User: " + appUser);
 
-        // [ROLE_USER, ROLE_ADMIN,..]
         List<UserRole> roleNames = this.iUserRoleRepository.findByAppUser(appUser);
 
         List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
         if (roleNames != null) {
             for (UserRole role : roleNames) {
-                // ROLE_USER, ROLE_ADMIN,..
                 GrantedAuthority authority = new SimpleGrantedAuthority(role.getAppRole().getRoleName());
                 grantList.add(authority);
             }

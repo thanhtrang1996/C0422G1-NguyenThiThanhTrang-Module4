@@ -1,8 +1,6 @@
 package com.blog.service;
 
-import com.blog.model.Blog;
 import com.blog.model.Category;
-import org.springframework.data.domain.Page;
 
 import java.util.List;
 

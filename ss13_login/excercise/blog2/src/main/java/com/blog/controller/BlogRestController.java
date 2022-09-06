@@ -26,7 +26,7 @@ BlogRestController {
 
         String keyName = name.orElse("");
         String keyAuthor = author.orElse("");
-        Page<Blog> blogPage = blogService.findAll(pageable,keyName,keyAuthor);
+        Page<Blog> blogPage = blogService.findAll(pageable, keyName, keyAuthor);
         if (!blogPage.hasContent()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }

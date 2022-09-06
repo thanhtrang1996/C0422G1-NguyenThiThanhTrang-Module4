@@ -1,6 +1,5 @@
 package com.blog.repository;
 
-import com.blog.model.AppRole;
 import com.blog.model.AppUser;
 import com.blog.model.UserRole;
 import org.springframework.data.jpa.repository.JpaRepository;
