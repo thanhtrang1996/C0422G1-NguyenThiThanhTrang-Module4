@@ -4,15 +4,20 @@ import com.blog.model.Blog;
 import com.blog.model.Category;
 import com.blog.service.IBlogService;
 import com.blog.service.ICategoryService;
+import com.blog.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,10 +31,14 @@ public class BlogController {
     @GetMapping("/blog")
     public String goPage(Model model, @PageableDefault(5) Pageable pageable,
                          @RequestParam Optional <String> name,
-                         @RequestParam(required = false, defaultValue = "") String author) {
+                         @RequestParam(required = false, defaultValue = "") String author,
+                         Principal principal) {
         for (Sort.Order order: pageable.getSort()) {
             model.addAttribute("sortValue", order.getProperty());
         }
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+        String userInfo = WebUtils.toString(loginedUser);
+        model.addAttribute("userInfo", userInfo);
         String keyName = name.orElse("");
         Page<Blog> blogPage = blogService.findAll(pageable,keyName, author);
         List<Category> categoryList = categoryService.findAll();
