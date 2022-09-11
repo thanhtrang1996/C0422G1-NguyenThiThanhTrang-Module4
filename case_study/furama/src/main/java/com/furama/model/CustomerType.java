@@ -1,5 +1,7 @@
 package com.furama.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -11,6 +13,7 @@ public class CustomerType {
     private Integer id;
     private String nameCustomerType;
     @OneToMany(mappedBy = "customerType")
+    @JsonBackReference
     private Set<Customer> customerSet;
 
     public CustomerType() {

@@ -35,12 +35,12 @@ public class CustomerController {
         for (Sort.Order order : pageable.getSort()) {
             model.addAttribute("sortValue", order.getProperty());
         }
-        String keyWork = key.orElse("");
-        Page<Customer> customerPage = customerService.findAllByName(pageable, keyWork);
+        String keyWord = key.orElse("");
+        Page<Customer> customerPage = customerService.findAllByName(pageable, keyWord);
         List<CustomerType> customerTypeList = customerTypeService.findAll();
         model.addAttribute("customerPage", customerPage);
         model.addAttribute("customerTypeList", customerTypeList);
-        model.addAttribute("keyWork", keyWork);
+        model.addAttribute("keyWord", keyWord);
         return "customer/listCustomer";
     }
 
@@ -78,6 +78,7 @@ public class CustomerController {
         model.addAttribute("customerTypeList", customerTypeList);
         model.addAttribute("customerDto", customerService.findById(id));
         return "customer/updateCustomer";
+
     }
 
     @PostMapping("/updateCustomer")

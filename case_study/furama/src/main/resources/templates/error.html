@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Error</title>
     <style>
         body {
-            background: #000;
+            background: black;
             margin: 0;
         }
     </style>
@@ -19,7 +19,7 @@
     canvas.width = 2000;
     canvas.height = 800;
     draw();
-    var textStrip = ['not found', 'error', 'error404' ];
+    var textStrip = ['404', 'NOUT FOUND' ];
     var stripCount = 60, stripX = new Array(), stripY = new Array(), dY = new Array(), stripFontSize = new Array();
     for (var i = 0; i < stripCount; i++) {
         stripX[i] = Math.floor(Math.random() * 1265);
@@ -27,7 +27,7 @@
         dY[i] = Math.floor(Math.random() * 7) + 3;
         stripFontSize[i] = Math.floor(Math.random() * 16) + 8;
     }
-    var theColors = ['#cefbe4'];
+    var theColors = ['#2B7A0B'];
     var elem, context, timer;
 
     function drawStrip(x, y) {
@@ -64,7 +64,7 @@
         context.clearRect(0, 0, canvas.width, canvas.height);
         context.shadowOffsetX = context.shadowOffsetY = 0;
         context.shadowBlur = 8;
-        context.shadowColor = '#94f475';
+        context.shadowColor = '#2B7A0B';
         for (var j = 0; j < stripCount; j++) {
             context.font = stripFontSize[j] + 'px MatrixCode';
             context.textBaseline = 'top';

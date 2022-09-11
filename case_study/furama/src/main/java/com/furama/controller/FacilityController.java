@@ -42,16 +42,17 @@ public class FacilityController {
         for (Sort.Order order : pageable.getSort()) {
             model.addAttribute("sortValue", order.getProperty());
         }
-        String keyWork = key.orElse("");
-        Page<Facility> facilityPage = facilityService.findByName(pageable, keyWork);
+        String keyWord = key.orElse("");
+        Page<Facility> facilityPage = facilityService.findByName(pageable, keyWord);
         List<FacilityType> facilityTypeList = facilityTypeService.findAll();
         List<RentType> rentTypeList = rentTypeService.findAll();
         model.addAttribute("facilityPage", facilityPage);
         model.addAttribute("facilityTypeList",facilityTypeList);
         model.addAttribute("rentTypeList",rentTypeList);
-        model.addAttribute("keyWork", keyWork);
+        model.addAttribute("keyWord", keyWord);
         return "facility/listFacility";
     }
+
 
     @GetMapping("/createFacility")
     public String showCreateFacility(Model model) {

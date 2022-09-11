@@ -1,0 +1,129 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Contract List</title>
+    <link rel="stylesheet" href="../style/bootstrap/bootstrap.min.css">
+</head>
+<body>
+<div class="text-center text-danger"><h1>Contract List</h1></div>
+<div class="row">
+    <form action="/createContract" th:object="${contract}" method="post">
+
+        <button type="button" data-bs-toggle="modal" class=" btn btn-success"
+                data-bs-target="#createContract">
+            Create Contract
+        </button>
+        <div class="modal fade" id="createContract" tabindex="-1" aria-labelledby="exampleModalLabel2"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title" id="exampleModalLabel2">Contract</h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="h3 text-warning fw-bold">Do you want Create Contract ?</p>
+                        <div>
+                            <div>
+                                <label class="form-label">Facility Name:</label>
+                                <select th:field="*{facility}" class="form-select">
+                                    <option th:each="facilitys:${facilityList}"
+                                            th:value="${facilitys.id}"
+                                            th:text="${facilitys.name}" class="form-control"></option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="form-label">Customer Name</label>
+                                <select th:field="*{customer}" class="form-select">
+                                    <option th:each="customers:${customerList}"
+                                            th:value="${customers.id}"
+                                            th:text="${customers.name}" class="form-control"></option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="form-label">Start Date</label>
+                                <input type="date" th:field="*{startDate}" class="form-control">
+                            </div>
+                            <div>
+                                <label class="form-label">End Date</label>
+                                <input type="date" th:field="*{endDate}" class="form-control">
+                            </div>
+
+                            <div>
+                                <label class="form-label">Deposit</label>
+                                <input type="text" th:field="*{deposit}" class="form-control">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th>No.</th>
+        <th>Facility</th>
+        <th>Customer</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Deposit</th>
+        <th>Total Money</th>
+        <th>Attach Facility</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="contracts,loop :${contractPage}">
+        <td th:text="${loop.count + size*contractPage.number}"></td>
+        <td th:text="${contracts.getFacility()}"></td>
+        <td th:text="${contracts.getName()}"></td>
+        <td th:text="${contracts.getStart()}"></td>
+        <td th:text="${contracts.getEnd()}"></td>
+        <td th:text="${contracts.getDeposit()}"></td>
+        <td th:text="${contracts.getTotal()}"></td>
+        <td>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createContract2">
+                +
+            </button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Attach Facility
+            </button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<div class="d-flex justify-content-end ">
+    <ul class="pagination">
+        <li class="page-item disabled" th:if="${contractPage.number == 0}">
+            <a class="page-link" href="">Previous</a>
+        </li>
+        <li class="page-item" th:if="${contractPage.number > 0}">
+            <a class="page-link"
+               th:href="@{/contract(page=${contractPage.number - 1})}">Previous</a>
+        </li>
+        <li class="page-item disabled">
+            <a class="page-link" href=""><span th:text="${contractPage.number + 1}"></span> / <span
+                    th:text="${contractPage.totalPages}"></span></a>
+        </li>
+        <li class="page-item disabled" th:if="${contractPage.number >= contractPage.totalPages - 1}">
+            <a class="page-link" href="">Next</a>
+        </li>
+        <li class="page-item" th:if="${contractPage.number < contractPage.totalPages - 1}">
+            <a class="page-link"
+               th:href="@{/contract(page=${contractPage.number + 1})}">Next</a>
+        </li>
+    </ul>
+</div>
+<script src="../style/jquery/jquery-3.6.0.min.js"></script>
+<script>
+
+</script>
+
+<script src="../style/bootstrap/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -24,7 +24,6 @@
         <thead>
         <tr>
             <th>No.</th>
-            <th>Id</th>
             <th>Name</th>
             <th>Birthday</th>
             <th>Gender</th>
@@ -40,7 +39,6 @@
         <tbody>
         <tr th:each="customer,loop :${customerPage}">
             <td th:text="${loop.count + customerPage.size * customerPage.number}"></td>
-            <td th:text="${customer.id}"></td>
             <td th:text=" ${customer.name}"></td>
             <td th:text=" ${customer.dateOfBirth}"></td>
             <td th:if="${customer.gender == 0}"> Nữ</td>
@@ -60,7 +58,6 @@
                 </button>
             </td>
         </tr>
-        </c:forEach>
         <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel"
              aria-hidden="true">
             <div class="modal-dialog">

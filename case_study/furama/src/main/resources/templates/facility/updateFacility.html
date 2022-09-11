@@ -8,11 +8,11 @@
 <div class="container">
     <form action="/updateFacility" method="post" th:object="${facilityDto}">
         <div class="mb-3">
-            <select onchange="choose()" id="select"  class="form-select">
-                <option>Choose Update Service</option>
-                <option value="villa">Villa</option>
-                <option value="house">House</option>
-                <option value="room">Room</option>
+            <select  class="form-select" onchange="choose(this.value)" id="select" th:field="*{facilityType}">
+                <option th:each="facilityTypes :${facilityTypeList}"
+                        th:value="${facilityTypes.id}"
+                        th:text="${facilityTypes.name}">
+                </option>
             </select>
         </div>
         <div class="mb-3">
@@ -47,15 +47,6 @@
                 <option th:each="rentTypes :${rentTypeList}"
                         th:value="${rentTypes.id}"
                         th:text="${rentTypes.name}"></option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label  class="form-label"> Facility Type</label>
-            <select  class="form-select"  th:field="*{facilityType}">
-                <option th:each="facilityTypes :${facilityTypeList}"
-                        th:value="${facilityTypes.id}"
-                        th:text="${facilityTypes.name}">
-                </option>
             </select>
         </div>
         <div class="mb-3" id="add" style="display: none">

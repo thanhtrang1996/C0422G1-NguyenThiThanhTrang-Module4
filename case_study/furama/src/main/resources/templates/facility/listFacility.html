@@ -1,6 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>List Service</title>
+    <title>List Facility</title>
     <link rel="stylesheet" href="../style/bootstrap/bootstrap.min.css">
 </head>
 <body>
@@ -24,7 +24,6 @@
             <thead>
             <tr>
                 <th>No.</th>
-                <th>Id</th>
                 <th>Name</th>
                 <th>Area</th>
                 <th>Cost</th>
@@ -38,7 +37,6 @@
             <tbody>
             <tr th:each="facility,loop:${facilityPage}">
                 <td th:text="${loop.count + facilityPage.size * facilityPage.number}"></td>
-                <td th:text="${facility.id}"></td>
                 <td th:text="${facility.name}"></td>
                 <td th:text="${facility.area}"></td>
                 <td th:text="${facility.cost}"></td>

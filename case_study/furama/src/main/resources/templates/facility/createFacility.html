@@ -9,12 +9,12 @@
     <div th:replace="~{header::navbar}"></div>
     <div >
         <form action="/createFacility" method="post" th:object="${facilityDto}" class="shadow-lg p-5">
-            <div class="mb-6">
-                <select onchange="choose()" id="select" class="form-select" >
-                    <option>Choose Create new Facility</option>
-                    <option value="villa">Villa</option>
-                    <option value="house">House</option>
-                    <option value="room">Room</option>
+            <div class="mb-3">
+                <select  class="form-select" onchange="choose(this.value)" id="select" th:field="*{facilityType}">
+                    <option th:each="facilityTypes :${facilityTypeList}"
+                            th:value="${facilityTypes.id}"
+                            th:text="${facilityTypes.name}">
+                    </option>
                 </select>
             </div>
             <div class="mb-3">
@@ -47,15 +47,7 @@
                     th:text="${rentTypes.name}"></option>
                 </select>
             </div>
-            <div class="mb-3">
-                <label  class="form-label"> Facility Type</label>
-                <select  class="form-select"  th:field="*{facilityType}">
-                    <option th:each="facilityTypes :${facilityTypeList}"
-                    th:value="${facilityTypes.id}"
-                    th:text="${facilityTypes.name}">
-                    </option>
-                </select>
-            </div>
+
             <div class="mb-3" id="add" style="display: none">
                 <label for="standard_room" class="form-label">Standard_room </label>
                 <input type="text" class="form-control" id="standard_room"th:field="*{standardRoom}" >
@@ -92,21 +84,21 @@
     function choose() {
         let result = document.getElementById("select").value;
         switch (result) {
-            case "room":
+            case "3":
                 document.getElementById("add").style.display = "none";
                 document.getElementById("add1").style.display = "none";
                 document.getElementById("add2").style.display = "none";
                 document.getElementById("add3").style.display = "none";
                 document.getElementById("add4").style.display = "block";
                 break;
-            case "house":
+            case "2":
                 document.getElementById("add").style.display = "block";
                 document.getElementById("add1").style.display = "block";
                 document.getElementById("add2").style.display = "none";
                 document.getElementById("add3").style.display = "block";
                 document.getElementById("add4").style.display = "none";
                 break;
-            case "villa":
+            case "1":
                 document.getElementById("add").style.display = "block";
                 document.getElementById("add1").style.display = "block";
                 document.getElementById("add2").style.display = "block";
