@@ -148,6 +148,7 @@ public class FacilityDto implements Validator {
         this.facilityFree = facilityFree;
     }
 
+
     @Override
     public boolean supports(Class<?> clazz) {
         return false;

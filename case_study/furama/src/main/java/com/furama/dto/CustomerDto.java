@@ -7,6 +7,8 @@ import org.springframework.validation.Validator;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import java.time.LocalDate;
+import java.time.Period;
 
 public class CustomerDto implements Validator {
     private Integer id;
@@ -121,7 +123,18 @@ public class CustomerDto implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-
-
+        CustomerDto customerDto = (CustomerDto) target;
+        LocalDate now = LocalDate.now();
+        if (customerDto.getDateOfBirth() != null && !customerDto.getDateOfBirth().equals("")) {
+            LocalDate age = LocalDate.parse(customerDto.getDateOfBirth());
+            int space = Period.between(age, now).getYears();
+            if (space < 18) {
+                errors.rejectValue("dateOfBirth", "date", " Age must be over 18");
+            }
+        } else {
+            errors.rejectValue("dateOfBirth", "date", "Please enter Age !");
+        }
     }
+
 }
+
