@@ -12,15 +12,15 @@ public class CustomerDto implements Validator {
     private Integer id;
     private CustomerType customerType;
     @NotBlank
-   @Pattern(regexp = "^[A-Z][a-z]+(\\s[A-Z][a-z]+)*$",message = "Enter the wrong format .Please enter!!")
+    @Pattern(regexp = "^[A-Z][a-z]+(\\s[A-Z][a-z]+)*$", message = "Enter the wrong format .Please enter!!")
     private String name;
     private String dateOfBirth;
     private Integer gender;
     @NotBlank
-    @Pattern(regexp = "^([0-9]{9})|([0-9]{12})$",message = "Enter the wrong format .Please enter!!")
+    @Pattern(regexp = "^([0-9]{9})|([0-9]{12})$", message = "Enter the wrong format .Please enter!!")
     private String idCard;
     @NotBlank
-    @Pattern(regexp = "^(090|091|(84+)90|(84+)91)[0-9]{6}$",message = "Enter the wrong format .Please enter!!")
+    @Pattern(regexp = "^(090|091|(84+)90|(84+)91)[0-9]{6}$", message = "Enter the wrong format .Please enter!!")
     private String phoneNumber;
     @Email(message = "Please enter email !!")
     private String email;

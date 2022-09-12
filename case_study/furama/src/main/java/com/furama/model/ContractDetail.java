@@ -18,7 +18,7 @@ public class ContractDetail {
     @ManyToOne
     @JoinColumn(name = "attach_facility_id", referencedColumnName = "id")
     private AttachFacility attachFacility;
-    
+
 
     public Integer getId() {
         return id;

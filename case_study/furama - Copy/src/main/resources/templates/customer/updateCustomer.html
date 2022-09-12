@@ -1,0 +1,74 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Customer Update</title>
+    <link rel="stylesheet" href="../style/bootstrap/bootstrap.min.css">
+</head>
+<body>
+<div th:replace="~{header::navbar}"></div>
+<div class="container">
+    <form action="updateCustomer" method="post" th:object="${customerDto}">
+        <div class="mb-3">
+            <label class="form-label" >Id Customer:</label>
+            <input type="text" class="form-control"  readonly th:field="*{id}">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Name Customer:</label>
+            <input type="text" class="form-control" th:field="*{name}">
+        </div>
+        <div class="mb-4 text-danger" th:errors="*{name}">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Birthday :</label>
+            <input type="date" class="form-control" th:field="*{dateOfBirth}">
+        </div>
+        <div class="mb-3">
+            <label for="gender" class="form-label">Gender :</label>
+            <div><select id="gender" name="gender" class="form-control">
+                <option>Choose Gender</option>
+                <option value="1">Male</option>
+                <option value="0">Female</option>
+            </select>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label"> Id_card :</label>
+            <input type="text" class="form-control" th:field="*{idCard}">
+        </div>
+        <div class="mb-4 text-danger" th:errors="*{idCard}">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Phone :</label>
+            <input type="text" class="form-control" th:field="*{phoneNumber}">
+        </div>
+        <div class="mb-4 text-danger" th:errors="*{phoneNumber}">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">email :</label>
+            <input type="text" class="form-control" th:field="*{email}">
+        </div>
+        <div class="mb-4 text-danger" th:errors="*{email}">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Customer_type :</label>
+            <div class="mb-3 ">
+                <select class="form-select" th:field="*{customerType}">
+                    <option th:each="customerTypes :${customerTypeList}"
+                            th:value="${customerTypes.id}"
+                            th:text="${customerTypes.nameCustomerType}" class="form-control"></option>
+                </select>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Address :</label>
+            <input type="text" class="form-control" th:field="*{address}">
+        </div>
+        <div>
+            <button class="btn btn-success" type="submit">Save</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+            </button>
+        </div>
+    </form>
+</div>
+<script src="../style/bootstrap/bootstrap.bundle.min.js"></script>
+</body>
+</html>

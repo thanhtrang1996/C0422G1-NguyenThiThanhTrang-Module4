@@ -11,7 +11,8 @@ import java.util.List;
 
 public interface IContractRepository extends JpaRepository<Contract,Integer> {
     Page<Contract> findAllByDepositContaining(Pageable pageable, String keyWord);
-    @Query(value = "call total()",nativeQuery = true)
+
+    @Query(value = "call total()", nativeQuery = true)
     List<ContractPage> totalMoney();
 
     @Query(value = " SELECT \n" +

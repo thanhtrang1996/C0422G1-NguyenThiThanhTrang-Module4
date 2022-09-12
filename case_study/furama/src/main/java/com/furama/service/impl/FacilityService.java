@@ -18,7 +18,7 @@ public class FacilityService implements IFacilityService {
 
     @Override
     public Page<Facility> findByName(Pageable pageable, String keyWork) {
-        return facilityRepository.findByNameContaining(pageable,keyWork);
+        return facilityRepository.findByNameContaining(pageable, keyWork);
     }
 
     @Override
@@ -38,6 +38,6 @@ public class FacilityService implements IFacilityService {
 
     @Override
     public Facility findById(Integer id) {
-      return   facilityRepository.findById(id).orElse(null);
+        return facilityRepository.findById(id).orElse(null);
     }
 }

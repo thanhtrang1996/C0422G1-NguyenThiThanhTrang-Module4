@@ -45,36 +45,41 @@ public class EmployeeController {
     }
 
     @GetMapping("/employee")
-    public String goList(Model model){
+    public String goList(Model model) {
         List<Employee> employeeList = employeeService.findAll();
-        model.addAttribute("employeeList",employeeList);
-        model.addAttribute("employee",new Employee());
-        model.addAttribute("employeeEdit",new Employee());
+        model.addAttribute("employeeList", employeeList);
+        model.addAttribute("employee", new Employee());
+        model.addAttribute("employeeEdit", new Employee());
         return "employee/listEmployee";
     }
+
     @GetMapping("/createEmployee")
-    public String formCreate(Model model){
-        model.addAttribute("employee",new Employee());
+    public String formCreate(Model model) {
+        model.addAttribute("employee", new Employee());
         return "employee/listEmployee";
     }
+
     @PostMapping("/createEmployee")
-    public String createEmployee(Employee employee){
+    public String createEmployee(Employee employee) {
         employeeService.save(employee);
         return "redirect:/employee";
     }
+
     @GetMapping("/updateEmployee")
-    public String showUpdate(@RequestParam Integer id,Model model){
-        model.addAttribute("employeeEdit",employeeService.findById(id));
+    public String showUpdate(@RequestParam Integer id, Model model) {
+        model.addAttribute("employeeEdit", employeeService.findById(id));
         System.out.println("here");
         return "employee/listEmployee";
     }
+
     @PostMapping("/updateEmployee")
-    public String updateEmployee(@ModelAttribute Employee employee){
+    public String updateEmployee(@ModelAttribute Employee employee) {
         employeeService.save(employee);
         return "redirect:/employee";
     }
+
     @GetMapping("/deleteEmployee")
-    public String delete(@RequestParam Integer id){
+    public String delete(@RequestParam Integer id) {
         employeeService.delete(id);
         return "redirect:/employee";
     }

@@ -11,13 +11,13 @@ import javax.validation.constraints.Pattern;
 public class FacilityDto implements Validator {
     private Integer id;
     @NotBlank
-    @Pattern(regexp = "^[A-Z][a-z]+(\\s[A-Z][a-z]+)*$",message = "Enter the wrong format .Please enter!!")
+    @Pattern(regexp = "^[A-Z][a-z]+(\\s[A-Z][a-z]+)*$", message = "Enter the wrong format .Please enter!!")
     private String name;
     @NotBlank
-    @Pattern(regexp = "^[1-9][0-9]*$",message = "Enter the wrong format .Please enter!!")
+    @Pattern(regexp = "^[1-9][0-9]*$", message = "Enter the wrong format .Please enter!!")
     private String area;
     @NotBlank
-    @Pattern(regexp = "^[1-9][0-9]*$",message = "Enter the wrong format .Please enter!!")
+    @Pattern(regexp = "^[1-9][0-9]*$", message = "Enter the wrong format .Please enter!!")
     private String cost;
     private String maxPeople;
     private RentType rentType;
@@ -25,10 +25,10 @@ public class FacilityDto implements Validator {
     private String standardRoom;
     private String descriptionOtherConvenience;
     @NotBlank
-    @Pattern(regexp = "^[1-9][0-9]*$",message = "Enter the wrong format .Please enter!!")
+    @Pattern(regexp = "^[1-9][0-9]*$", message = "Enter the wrong format .Please enter!!")
     private String poolArea;
     @NotBlank
-    @Pattern(regexp = "^[1-9][0-9]*$",message = "Enter the wrong format .Please enter!!")
+    @Pattern(regexp = "^[1-9][0-9]*$", message = "Enter the wrong format .Please enter!!")
     private String numberOfFloors;
     private String facilityFree;
 

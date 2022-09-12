@@ -9,8 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class FuramaController {
     @Autowired
     private IFuramaService furamaService;
+
     @GetMapping("/")
-    public String goHome(){
+    public String goHome() {
         return "home";
     }
 }

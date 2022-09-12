@@ -7,10 +7,10 @@
 <body>
 <div class="container">
     <div th:replace="~{header::navbar}"></div>
-    <div >
+    <div>
         <form action="/createFacility" method="post" th:object="${facilityDto}" class="shadow-lg p-5">
             <div class="mb-3">
-                <select  class="form-select" onchange="choose(this.value)" id="select" th:field="*{facilityType}">
+                <select class="form-select" onchange="choose(this.value)" id="select" th:field="*{facilityType}">
                     <option th:each="facilityTypes :${facilityTypeList}"
                             th:value="${facilityTypes.id}"
                             th:text="${facilityTypes.name}">
@@ -25,13 +25,13 @@
             </div>
             <div class="mb-3">
                 <label for="area" class="form-label">Area </label>
-                <input type="number" class="form-control" id="area" th:field="*{area}" >
+                <input type="number" class="form-control" id="area" th:field="*{area}">
             </div>
             <div class="mb-4 text-danger" th:errors="*{area}">
             </div>
             <div class="mb-3">
                 <label for="cost" class="form-label">Cost</label>
-                <input type="number" class="form-control" id="cost" th:field="*{cost}" >
+                <input type="number" class="form-control" id="cost" th:field="*{cost}">
             </div>
             <div class="mb-4 text-danger" th:errors="*{cost}">
             </div>
@@ -40,17 +40,17 @@
                 <input type="number" class="form-control" id="max" th:field="*{maxPeople}">
             </div>
             <div class="mb-3">
-                <label  class="form-label"> Rent Type </label>
-                <select  class="form-select"  th:field="*{rentType}" >
+                <label class="form-label"> Rent Type </label>
+                <select class="form-select" th:field="*{rentType}">
                     <option th:each="rentTypes :${rentTypeList}"
-                    th:value="${rentTypes.id}"
-                    th:text="${rentTypes.name}"></option>
+                            th:value="${rentTypes.id}"
+                            th:text="${rentTypes.name}"></option>
                 </select>
             </div>
 
             <div class="mb-3" id="add" style="display: none">
                 <label for="standard_room" class="form-label">Standard_room </label>
-                <input type="text" class="form-control" id="standard_room"th:field="*{standardRoom}" >
+                <input type="text" class="form-control" id="standard_room" th:field="*{standardRoom}">
             </div>
             <div class="mb-3" id="add1" style="display: none">
                 <label for="convenience" class="form-label">DescriptionOtherConvenience </label>

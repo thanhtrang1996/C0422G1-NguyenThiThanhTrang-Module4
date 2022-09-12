@@ -9,7 +9,8 @@
     <h1 class="text-center text-primary m-5">List Customer</h1>
     <div class="row">
         <div class="col-lg-3"><a href="/createCustomer" class="btn btn-success">Create Customer</a></div>
-        <div class="col-lg-3"><a th:href="@{/customer(sort='name', name=${keyWork})}" type="submit" class="btn btn-info ">Sort By Name</a></div>
+        <div class="col-lg-3"><a th:href="@{/customer(sort='name', name=${keyWork})}" type="submit"
+                                 class="btn btn-info ">Sort By Name</a></div>
         <div class="col-lg-6 align-items-lg-end">
             <form action="/customer" class="d-flex justify-content-lg-end">
                 <input class="form-control me-2 w-50" type="text" placeholder="SearchName"

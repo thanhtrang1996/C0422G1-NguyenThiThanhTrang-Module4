@@ -3,7 +3,6 @@ package com.furama.controller;
 import com.furama.model.*;
 import com.furama.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -26,19 +25,27 @@ public class ContractController {
     private IFacilityService facilityService;
     @Autowired
     private ICustomerService customerService;
+
     @ModelAttribute("facilityList")
-    public List<Facility> getFacility(){
-        return  facilityService.findAll();
-    };
+    public List<Facility> getFacility() {
+        return facilityService.findAll();
+    }
+
+    ;
+
     @ModelAttribute("customerList")
-    public List<Customer> getCustomer(){
+    public List<Customer> getCustomer() {
         return customerService.findAll();
-    };
+    }
+
+    ;
+
     @ModelAttribute("attachFacilityList")
     public List<AttachFacility> getAttachFacility() {
 
         return attachFacilityService.findAll();
     }
+
     @ModelAttribute("contractDetailList")
     public List<ContractDetail> getContractDetail() {
 
@@ -47,21 +54,23 @@ public class ContractController {
 
     @GetMapping("/contract")
     public String goListContract(Model model,
-                                 @PageableDefault(size =5) Pageable pageable
-                                 ) {
+                                 @PageableDefault(size = 5) Pageable pageable
+    ) {
         model.addAttribute("contractPage", contractService.totalMoney(pageable));
-        model.addAttribute("size",pageable.getPageSize());
-        model.addAttribute("contract",new Contract());
+        model.addAttribute("size", pageable.getPageSize());
+        model.addAttribute("contract", new Contract());
         return "contract/listContract";
     }
+
     @GetMapping("/createContract")
-    public String showCreate(Model model){
-        model.addAttribute("contract",new Contract());
+    public String showCreate(Model model) {
+        model.addAttribute("contract", new Contract());
         return "contract/listContract";
     }
+
     @PostMapping("/createContract")
-    public String createContract(Contract contract){
-       contractService.save(contract) ;
-       return "redirect:/contract";
+    public String createContract(Contract contract) {
+        contractService.save(contract);
+        return "redirect:/contract";
     }
 }

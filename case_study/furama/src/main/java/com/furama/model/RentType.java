@@ -6,10 +6,10 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table (name = "rent_type")
+@Table(name = "rent_type")
 public class RentType {
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
     @OneToMany(mappedBy = "rentType")

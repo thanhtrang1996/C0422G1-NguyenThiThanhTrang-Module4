@@ -87,16 +87,66 @@
         <td th:text="${contracts.getDeposit()}"></td>
         <td th:text="${contracts.getTotal()}"></td>
         <td>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createContract2">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#contractDetail">
                 +
             </button>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <button type="button" th:attr="onclick=|infoToModal('${contracts.getId}')|" class="btn btn-primary"
+                    data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Attach Facility
             </button>
         </td>
     </tr>
     </tbody>
 </table>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-danger text-center" id="exampleModalLabel">Attach Facility List</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-hover">
+                    <tr class="text-primary">
+                        <th>No.</th>
+                        <th>Attach Facility Name</th>
+                        <th>Cost</th>
+                        <th>Unit</th>
+                        <th>Status</th>
+                    </tr>
+                    <tbody id="table">
+                    </tbody>
+
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="contractDetail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-danger text-center">Contract Detail</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/attachFacility">
+                <div class="modal-body">
+                    <label class="form-label"> Attach Facility Name:</label>
+                    <select th:each="attachFacilitys:${attachFacilityList}" class="form-select">
+                        <option th:text="${attachFacilitys.name}"></option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <div class="d-flex justify-content-end ">
     <ul class="pagination">
         <li class="page-item disabled" th:if="${contractPage.number == 0}">
@@ -121,7 +171,30 @@
 </div>
 <script src="../style/jquery/jquery-3.6.0.min.js"></script>
 <script>
+    function infoToModal(id) {
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:8080/contractRest/listAttachFacility?id=" + id,
+            success: function (attachFacilityList) {
+                let htmlStr = '';
+                for (let i = 0; i < attachFacilityList.length; i++) {
 
+                    htmlStr += `<tr>
+                        <td>${i + 1}</td>
+                       <td>${attachFacilityList[i].name}</td>
+                        <td>${attachFacilityList[i].cost}</td>
+                        <td>${attachFacilityList[i].unit}</td>
+                        <td>${attachFacilityList[i].status}</td>
+                    </tr>`;
+                }
+                $("#table").html(htmlStr);
+            },
+            error: function (resultError) {
+            }
+        });
+    }
+
+    infoToModal(id);
 </script>
 
 <script src="../style/bootstrap/bootstrap.bundle.min.js"></script>

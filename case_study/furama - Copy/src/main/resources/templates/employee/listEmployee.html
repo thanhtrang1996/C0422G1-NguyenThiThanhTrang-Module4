@@ -1,0 +1,243 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Employee List</title>
+    <link rel="stylesheet" href="../style/bootstrap/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1 class="text-center text-primary">List Employee</h1>
+            <div class="row">
+                <form action="/updateEmployee" th:object="${employeeEdit}" method="post">
+
+                    <div class="modal fade" id="exampleModalEmployee" tabindex="-1" aria-labelledby="exampleModalLabel1"
+                         aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h2 class="modal-title" id="exampleModalLabel1">Employee</h2>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p class="h3 text-primary fw-bold">Do you want update Employee ?</p>
+                                    <div class="modal-body">
+                                        <div>
+                                            <div>
+                                                <label class="form-label">Id Employee:</label>
+                                                <input type="text"  readonly th:field="*{id}" name ="id" class="form-control">
+                                            </div>
+                                            <div>
+                                                <label class="form-label">Name Employee:</label>
+                                                <input type="text"  th:field="*{name}" class="form-control">
+                                            </div>
+                                            <div>
+                                                <label class="form-label">Date Of Birth:</label>
+                                                <input type="date"  th:field="*{dateOfBirth}"
+                                                       class="form-control">
+                                            </div>
+                                            <div>
+                                                <label class="form-label">ID Card Employee:</label>
+                                                <input type="text" th:field="*{idCard}" class="form-control">
+                                            </div>
+                                            <div>
+                                                <label class="form-label">Email Employee:</label>
+                                                <input type="text" th:field="*{email}" class="form-control">
+                                            </div>
+                                            <div>
+                                                <div>
+                                                    <label class="form-label">Education Degree Employee:</label>
+                                                    <select class="form-select" th:field="*{educationDegree}">
+                                                        <option th:each="education :${educationDegreeList}"
+                                                                th:value="${education.id}"
+                                                                th:text="${education.name}" class="form-control"></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label class="form-label">Position Employee:</label>
+                                                <select class="form-select" th:field ="*{position}">
+                                                    <option th:each="position : ${positionList}"
+                                                            th:value="${position.id}"
+                                                            th:text="${position.name}" class="form-control"></option>
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <label class="form-label">Salary Employee:</label>
+                                                <input type="text" name="salary" placeholder="Salary" class="form-control">
+                                            </div>
+                                            <div>
+                                                <label class="form-label">Division Employee:</label>
+                                                <select class="form-select" th:field="*{division}">
+                                                    <option th:each="division :${divisionList}"
+                                                            th:value="${division.id}"
+                                                            th:text="${division.name}" class="form-control"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </form>
+            </div>
+        <div class="row">
+            <form action="/createEmployee" th:object="${employee}" method="post">
+
+                <button type="button" data-bs-toggle="modal" class=" btn btn-success"
+                        data-bs-target="#exampleModalEmployee2">
+                    Create Employee
+                </button>
+                <div class="modal fade" id="exampleModalEmployee2" tabindex="-1" aria-labelledby="exampleModalLabel2"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h2 class="modal-title" id="exampleModalLabel2">Employee</h2>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="h3 text-warning fw-bold">Do you want Create Employee ?</p>
+                                <div>
+                                    <div>
+                                        <label class="form-label">Name Employee:</label>
+                                        <input type="text"  th:field="*{name}" class="form-control">
+                                    </div>
+                                    <div>
+                                        <label class="form-label">Date Of Birth:</label>
+                                        <input type="date"  th:field="*{dateOfBirth}"
+                                               class="form-control">
+                                    </div>
+                                    <div>
+                                        <label class="form-label">ID Card Employee:</label>
+                                        <input type="text" th:field="*{idCard}" class="form-control">
+                                    </div>
+                                    <div>
+                                        <label class="form-label">Email Employee:</label>
+                                        <input type="text" th:field="*{email}" class="form-control">
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <label class="form-label">Education Degree Employee:</label>
+                                            <select class="form-select" th:field="*{educationDegree}">
+                                                <option th:each="education :${educationDegreeList}"
+                                                th:value="${education.id}"
+                                                th:text="${education.name}" class="form-control"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label class="form-label">Position Employee:</label>
+                                        <select class="form-select" th:field ="*{position}">
+                                            <option th:each="position : ${positionList}"
+                                            th:value="${position.id}"
+                                            th:text="${position.name}" class="form-control"></option>
+                                        </select>
+                                    </div>
+                                <div>
+                                    <label class="form-label">Salary Employee:</label>
+                                    <input type="text" name="salary" placeholder="Salary" class="form-control">
+                                </div>
+                                <div>
+                                    <label class="form-label">Division Employee:</label>
+                                    <select class="form-select" th:field="*{division}">
+                                        <option th:each="division :${divisionList}"
+                                        th:value="${division.id}"
+                                        th:text="${division.name}" class="form-control"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </form>
+        </div>
+    <table class="table table-hover" >
+        <thead>
+        <tr >
+            <th>No.</th>
+            <th>Name</th>
+            <th>Date Of Birth</th>
+            <th>Id Card</th>
+            <th>Email</th>
+            <th>Education Degree</th>
+            <th>Division</th>
+            <th>Position</th>
+            <th>Salary</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr th:each="employee,loop : ${employeeList}">
+                <td th:text="${loop.count }"></td>
+                <td th:text="${employee.name}"></td>
+                <td th:text="${employee.dateOfBirth}"></td>
+                <td th:text="${employee.idCard}"></td>
+                <td th:text="${employee.email}"></td>
+                <td th:text="${employee.educationDegree.name}"></td>
+                <td th:text="${employee.division.name}"></td>
+                <td th:text="${employee.position.name}"></td>
+                <td th:text="${employee.salary}"></td>
+               <td> <a th:href="@{/updateEmployee(id=${employee.id})}" data-bs-toggle="modal" class="btn btn-warning"
+                        data-bs-target="#exampleModalEmployee">
+                    Update
+                </a>
+               </td>
+                <td>
+                    <button th:attr="onclick=|infoToModal('${employee.id}','${employee.name}')|" class="btn btn-danger"
+                            type="button" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <form action="/deleteEmployee" method="get">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2 class="modal-title" id="exampleModalLabel">Employee</h2>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <label class="form-label">Id Employee:</label>
+                            <input type="text"  readonly name="id" id="deleteId" class="form-control">
+
+                        </div>
+                        <div class="modal-body">
+                            <label class="form-label">Name Employee:</label>
+                            <input type="text"  readonly name="name"  id="deleteName" class="form-control">
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" >Yes</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        </tbody>
+    </table>
+</div>
+<script>
+    function infoToModal(id, name) {
+        document.getElementById("deleteId").value = id;
+        document.getElementById("deleteName").value = name;
+    }
+</script>
+<script src="../style/bootstrap/bootstrap.bundle.min.js"></script>
+</body>
+</html>

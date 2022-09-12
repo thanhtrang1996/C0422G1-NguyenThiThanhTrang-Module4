@@ -47,8 +47,8 @@ public class FacilityController {
         List<FacilityType> facilityTypeList = facilityTypeService.findAll();
         List<RentType> rentTypeList = rentTypeService.findAll();
         model.addAttribute("facilityPage", facilityPage);
-        model.addAttribute("facilityTypeList",facilityTypeList);
-        model.addAttribute("rentTypeList",rentTypeList);
+        model.addAttribute("facilityTypeList", facilityTypeList);
+        model.addAttribute("rentTypeList", rentTypeList);
         model.addAttribute("keyWord", keyWord);
         return "facility/listFacility";
     }
@@ -58,8 +58,8 @@ public class FacilityController {
     public String showCreateFacility(Model model) {
         List<FacilityType> facilityTypeList = facilityTypeService.findAll();
         List<RentType> rentTypeList = rentTypeService.findAll();
-        model.addAttribute("facilityTypeList",facilityTypeList);
-        model.addAttribute("rentTypeList",rentTypeList);
+        model.addAttribute("facilityTypeList", facilityTypeList);
+        model.addAttribute("rentTypeList", rentTypeList);
         model.addAttribute("facilityDto", new FacilityDto());
         return "facility/createFacility";
     }
@@ -68,14 +68,14 @@ public class FacilityController {
     public String createFacility(@ModelAttribute
                                  @Valid FacilityDto facilityDto,
                                  BindingResult bindingResult,
-                               RedirectAttributes redirectAttributes,
+                                 RedirectAttributes redirectAttributes,
                                  Model model) {
         new FacilityDto().validate(facilityDto, bindingResult);
         if (bindingResult.hasErrors()) {
             List<FacilityType> facilityTypeList = facilityTypeService.findAll();
             List<RentType> rentTypeList = rentTypeService.findAll();
-            model.addAttribute("facilityTypeList",facilityTypeList);
-            model.addAttribute("rentTypeList",rentTypeList);
+            model.addAttribute("facilityTypeList", facilityTypeList);
+            model.addAttribute("rentTypeList", rentTypeList);
             return "facility/createFacility";
         }
         Facility facility = new Facility();
@@ -91,8 +91,8 @@ public class FacilityController {
         model.addAttribute("facilityDto", facilityService.findById(id));
         List<FacilityType> facilityTypeList = facilityTypeService.findAll();
         List<RentType> rentTypeList = rentTypeService.findAll();
-        model.addAttribute("facilityTypeList",facilityTypeList);
-        model.addAttribute("rentTypeList",rentTypeList);
+        model.addAttribute("facilityTypeList", facilityTypeList);
+        model.addAttribute("rentTypeList", rentTypeList);
         return "facility/updateFacility";
     }
 
@@ -104,19 +104,20 @@ public class FacilityController {
                                  RedirectAttributes redirectAttributes,
                                  Model model) {
         new FacilityDto().validate(facilityDto, bindingResult);
-        if (bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             List<FacilityType> facilityTypeList = facilityTypeService.findAll();
             List<RentType> rentTypeList = rentTypeService.findAll();
-            model.addAttribute("facilityTypeList",facilityTypeList);
-            model.addAttribute("rentTypeList",rentTypeList);
+            model.addAttribute("facilityTypeList", facilityTypeList);
+            model.addAttribute("rentTypeList", rentTypeList);
             return "facility/updateFacility";
         }
         facilityService.save(facility);
         redirectAttributes.addFlashAttribute("msg1", "Update successfully!");
         return "redirect:/facility";
     }
+
     @GetMapping("/deleteFacility")
-    public String deleteFacility(@RequestParam Integer id){
+    public String deleteFacility(@RequestParam Integer id) {
         facilityService.delete(id);
         return "redirect:/facility";
     }
