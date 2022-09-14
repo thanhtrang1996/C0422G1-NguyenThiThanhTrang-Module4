@@ -18,4 +18,6 @@ public interface IContractService {
     Page<ContractPage> totalMoney(Pageable pageable);
 
     void save(Contract contract);
+
+    Contract findById(Integer id);
 }

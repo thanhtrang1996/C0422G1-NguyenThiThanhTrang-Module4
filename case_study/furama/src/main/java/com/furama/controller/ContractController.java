@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -71,6 +72,15 @@ public class ContractController {
     @PostMapping("/createContract")
     public String createContract(Contract contract) {
         contractService.save(contract);
+        return "redirect:/contract";
+    }
+
+    @PostMapping("/attachFacility")
+    public String goAttachFacility(@RequestParam Integer idContract, @RequestParam String quantity, @RequestParam Integer idAttachFacility) {
+        AttachFacility attachFacility = attachFacilityService.findById(idAttachFacility);
+        Contract contract = contractService.findById(idContract);
+        ContractDetail contractDetail = new ContractDetail(quantity, contract, attachFacility);
+        contractDetailService.save(contractDetail);
         return "redirect:/contract";
     }
 }

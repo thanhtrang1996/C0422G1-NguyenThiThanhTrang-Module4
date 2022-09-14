@@ -1,6 +1,8 @@
 package com.furama.service;
 
 import com.furama.model.Employee;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -12,4 +14,6 @@ public interface IEmployeeService {
     Employee findById(Integer id);
 
     void delete(Integer id);
+
+    Page<Employee> findByName(Pageable pageable, String keyName);
 }

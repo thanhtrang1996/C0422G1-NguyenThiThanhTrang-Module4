@@ -14,6 +14,10 @@ public class ContractDetailService implements IContractDetailService {
     private IContractDetailRepository contractDetailRepository;
 
     @Override
+    public void save(ContractDetail contractDetail) {
+        contractDetailRepository.save(contractDetail);
+    }
+    @Override
     public List<ContractDetail> findAll() {
         return contractDetailRepository.findAll();
     }

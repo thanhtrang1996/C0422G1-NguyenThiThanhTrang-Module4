@@ -9,12 +9,12 @@
     <h1 class="text-center text-primary m-5">Facility List</h1>
     <div class="row">
         <div class="col-lg-3"><a href="/createFacility" class="btn btn-success">Create Facility</a></div>
-        <div class="col-lg-3"><a th:href="@{/facility(sort='name', name=${keyWork})}" type="submit"
+        <div class="col-lg-3"><a th:href="@{/facility(sort='name', name=${keyWord})}" type="submit"
                                  class="btn btn-info ">Sort By Name</a></div>
         <div class="col-lg-6 align-items-lg-end">
             <form action="/facility" class="d-flex justify-content-lg-end">
                 <input class="form-control me-2 w-50" type="text" placeholder="SearchName"
-                       name="key" th:value="${keyWork}" aria-label="Search">
+                       name="key" th:value="${keyWord}" aria-label="Search">
                 <button class="btn btn-success" value="search" type="submit">Search</button>
             </form>
         </div>
@@ -90,7 +90,7 @@
                 </li>
                 <li class="page-item" th:if="${facilityPage.number > 0}">
                     <a class="page-link"
-                       th:href="@{/facility(page=${facilityPage.number - 1}, sort=${sortValue}, name=${keyWork})}">Previous</a>
+                       th:href="@{/facility(page=${facilityPage.number - 1}, sort=${sortValue}, name=${keyWord})}">Previous</a>
                 </li>
                 <li class="page-item disabled">
                     <a class="page-link" href=""><span th:text="${facilityPage.number + 1}"></span> / <span
@@ -101,11 +101,12 @@
                 </li>
                 <li class="page-item" th:if="${facilityPage.number < facilityPage.totalPages - 1}">
                     <a class="page-link"
-                       th:href="@{/facility(page=${facilityPage.number + 1}, sort=${sortValue}, name=${keyWork})}">Next</a>
+                       th:href="@{/facility(page=${facilityPage.number + 1}, sort=${sortValue}, name=${keyWord})}">Next</a>
                 </li>
             </ul>
         </div>
     </div>
+</div>
     <script src="../style/bootstrap/bootstrap.bundle.min.js"></script>
     <script>
         function infoToModal(id, name) {

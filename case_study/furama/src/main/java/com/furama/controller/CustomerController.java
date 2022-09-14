@@ -103,6 +103,11 @@ public class CustomerController {
         customerService.delete(id);
         return "redirect:/customer";
     }
+    @GetMapping("/detailCustomer")
+    public String detailCustomer(@RequestParam Integer id) {
+        customerService.findById(id);
+        return "redirect:/customer";
+    }
 
     @ExceptionHandler(value = Exception.class)
     public String error() {

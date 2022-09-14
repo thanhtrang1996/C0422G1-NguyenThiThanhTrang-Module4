@@ -9,12 +9,12 @@
     <h1 class="text-center text-primary m-5">List Customer</h1>
     <div class="row">
         <div class="col-lg-3"><a href="/createCustomer" class="btn btn-success">Create Customer</a></div>
-        <div class="col-lg-3"><a th:href="@{/customer(sort='name', name=${keyWork})}" type="submit"
+        <div class="col-lg-3"><a th:href="@{/customer(sort='name', name=${keyWord})}" type="submit"
                                  class="btn btn-info ">Sort By Name</a></div>
         <div class="col-lg-6 align-items-lg-end">
             <form action="/customer" class="d-flex justify-content-lg-end">
                 <input class="form-control me-2 w-50" type="text" placeholder="SearchName"
-                       name="key" th:value="${keyWork}" aria-label="Search">
+                       name="key" th:value="${keyWord}" aria-label="Search">
                 <button class="btn btn-success" value="search" type="submit">Search</button>
             </form>
         </div>
@@ -35,6 +35,7 @@
             <th>Address</th>
             <th>Update</th>
             <th>Delete</th>
+            <th>Detail</th>
         </tr>
         </thead>
         <tbody>
@@ -58,6 +59,15 @@
                     Delete
                 </button>
             </td>
+            <td>
+                <button th:attr="onclick=|infoToDetail('${customer.id}','${customer.name}',
+                '${customer.dateOfBirth}','${customer.gender}','${customer.idCard}',
+                '${customer.phoneNumber}','${customer.customerType.nameCustomerType}',
+                '${customer.email}','${customer.address}')|" class="btn btn-info"
+                        type="button" data-bs-toggle="modal" data-bs-target="#detailModal">
+                    Detail
+                </button>
+            </td>
         </tr>
         <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel"
              aria-hidden="true">
@@ -73,12 +83,49 @@
                             <b>ID Customer :</b>
                             <input type="text" readonly name="id" id="deleteId" class="form-control"><br>
                             <b>Customer Name :</b>
-                            <input type="text" readonly name="name" id="deleteName" class="form-control"><br>
+                            <input type="text" readonly id="deleteName" class="form-control"><br>
                             <h3 class="text-danger">Are you sure want delete </h3>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary" value="delete">Yes</button>
+                            <button type="submit" class="btn btn-primary" >Yes</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <form action="/detailCustomer" method="get">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2 class="modal-title text-danger" id="exampleModalLabel1"  >Customer</h2>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body ">
+                            <b>ID Customer :</b>
+                            <input type="text" readonly name="id" id="detailId" class="form-control"><br>
+                            <b>Customer Name :</b>
+                            <input type="text" readonly name="name" id="detailName" class="form-control"><br>
+                            <b>Date Of Birth :</b>
+                            <input type="text" readonly name="dateOfBirth" id="date" class="form-control">
+                            <br> <b>Gender :</b>
+                            <input type="text" readonly name="gender" id="gender" class="form-control"><br>
+                            <b>ID Card:</b>
+                            <input type="text" readonly name="idCard" id="idCard" class="form-control"><br>
+                            <b>Phone Number:</b>
+                            <input type="text" readonly name="phoneNumber" id="phoneNumber" class="form-control"><br>
+                            <b>Customer Type Name:</b>
+                            <input type="text" readonly name="type" id="type" class="form-control"><br>
+                            <b>Email:</b>
+                            <input type="text" readonly name="email" id="email" class="form-control"><br>
+                            <b>Address:</b>
+                            <input type="text" readonly name="address" id="address" class="form-control"><br>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </form>
@@ -93,7 +140,7 @@
             </li>
             <li class="page-item" th:if="${customerPage.number > 0}">
                 <a class="page-link"
-                   th:href="@{/customer(page=${customerPage.number - 1}, sort=${sortValue}, name=${keyWork})}">Previous</a>
+                   th:href="@{/customer(page=${customerPage.number - 1}, sort=${sortValue}, name=${keyWord})}">Previous</a>
             </li>
             <li class="page-item disabled">
                 <a class="page-link" href=""><span th:text="${customerPage.number + 1}"></span> / <span
@@ -104,15 +151,29 @@
             </li>
             <li class="page-item" th:if="${customerPage.number < customerPage.totalPages - 1}">
                 <a class="page-link"
-                   th:href="@{/customer(page=${customerPage.number + 1}, sort=${sortValue}, name=${keyWork})}">Next</a>
+                   th:href="@{/customer(page=${customerPage.number + 1}, sort=${sortValue}, name=${keyWord})}">Next</a>
             </li>
         </ul>
     </div>
 </div>
+<script src="../style/jquery/jquery-3.6.0.min.js"></script>
 <script>
     function infoToModal(id, name) {
-        document.getElementById("deleteId").value = id;
-        document.getElementById("deleteName").value = name;
+        $('#deleteId').val("id");
+        $('#deleteName').val(name);
+    }
+
+    function infoToDetail(id, name,date,gender,idCard,phoneNumber,type,email,address) {
+      $('#detailId').val("id");
+      $('#detailName').val(name);
+      $('#date').val(date);
+      $('#gender').val(gender);
+      $('#idCard').val(idCard);
+      $('#phoneNumber').val(phoneNumber);
+      $('#type').val(type);
+      $('#email').val(email);
+      $('#address').val(address);
+
     }
 </script>
 <script src="../style/bootstrap/bootstrap.bundle.min.js"></script>

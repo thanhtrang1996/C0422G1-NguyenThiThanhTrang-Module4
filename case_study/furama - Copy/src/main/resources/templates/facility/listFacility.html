@@ -88,7 +88,7 @@
             </li>
             <li class="page-item" th:if="${facilityPage.number > 0}">
                 <a class="page-link"
-                   th:href="@{/facility(page=${facilityPage.number - 1}, sort=${sortValue}, name=${keyWork})}">Previous</a>
+                   th:href="@{/facility(page=${facilityPage.number - 1}, sort=${sortValue}, name=${keyWord})}">Previous</a>
             </li>
             <li class="page-item disabled">
                 <a class="page-link" href=""><span th:text="${facilityPage.number + 1}"></span> / <span
@@ -99,7 +99,7 @@
             </li>
             <li class="page-item" th:if="${facilityPage.number < facilityPage.totalPages - 1}">
                 <a class="page-link"
-                   th:href="@{/facility(page=${facilityPage.number + 1}, sort=${sortValue}, name=${keyWork})}">Next</a>
+                   th:href="@{/facility(page=${facilityPage.number + 1}, sort=${sortValue}, name=${keyWord})}">Next</a>
             </li>
         </ul>
     </div>

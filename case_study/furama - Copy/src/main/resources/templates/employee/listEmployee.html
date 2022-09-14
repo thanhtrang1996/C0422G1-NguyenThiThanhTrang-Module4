@@ -85,14 +85,14 @@
                     </div>
                 </form>
             </div>
-        <div class="row">
-            <form action="/createEmployee" th:object="${employee}" method="post">
 
                 <button type="button" data-bs-toggle="modal" class=" btn btn-success"
-                        data-bs-target="#exampleModalEmployee2">
-                    Create Employee
+                        data-bs-target="#create"  >
+                    Create New Employee
                 </button>
-                <div class="modal fade" id="exampleModalEmployee2" tabindex="-1" aria-labelledby="exampleModalLabel2"
+    <div class="row" >
+            <form>
+                <div class="modal fade" id="create" tabindex="-1" aria-labelledby="exampleModalLabel2"
                      aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -105,56 +105,64 @@
                                 <p class="h3 text-warning fw-bold">Do you want Create Employee ?</p>
                                 <div>
                                     <div>
-                                        <label class="form-label">Name Employee:</label>
-                                        <input type="text"  th:field="*{name}" class="form-control">
+                                        <label class="form-label" >Name Employee:</label>
+                                        <input type="text" id="nameEmployee" class="form-control">
                                     </div>
                                     <div>
                                         <label class="form-label">Date Of Birth:</label>
-                                        <input type="date"  th:field="*{dateOfBirth}"
+                                        <input type="date"  id="dateOfBirthEmployee"
                                                class="form-control">
                                     </div>
                                     <div>
                                         <label class="form-label">ID Card Employee:</label>
-                                        <input type="text" th:field="*{idCard}" class="form-control">
+                                        <input type="text" id="idCardEmployee" class="form-control">
+                                    </div>
+                                    <div>
+                                        <label class="form-label">Phone Number Employee:</label>
+                                        <input type="text" id="phoneNumber" class="form-control">
                                     </div>
                                     <div>
                                         <label class="form-label">Email Employee:</label>
-                                        <input type="text" th:field="*{email}" class="form-control">
+                                        <input type="text" id="emailEmployee" class="form-control">
+                                    </div>
+                                    <div>
+                                        <label class="form-label">Address:</label>
+                                        <input type="text" id="address" class="form-control">
                                     </div>
                                     <div>
                                         <div>
                                             <label class="form-label">Education Degree Employee:</label>
-                                            <select class="form-select" th:field="*{educationDegree}">
+                                            <select class="form-select" id="education">
                                                 <option th:each="education :${educationDegreeList}"
-                                                th:value="${education.id}"
-                                                th:text="${education.name}" class="form-control"></option>
+                                                        th:value="${education.id}"
+                                                        th:text="${education.name}" class="form-control"></option>
                                             </select>
                                         </div>
                                     </div>
                                     <div>
                                         <label class="form-label">Position Employee:</label>
-                                        <select class="form-select" th:field ="*{position}">
+                                        <select class="form-select" id="positionEmployee">
                                             <option th:each="position : ${positionList}"
-                                            th:value="${position.id}"
-                                            th:text="${position.name}" class="form-control"></option>
+                                                    th:value="${position.id}"
+                                                    th:text="${position.name}" class="form-control"></option>
                                         </select>
                                     </div>
                                 <div>
                                     <label class="form-label">Salary Employee:</label>
-                                    <input type="text" name="salary" placeholder="Salary" class="form-control">
+                                    <input type="text" id="salary" class="form-control">
                                 </div>
                                 <div>
                                     <label class="form-label">Division Employee:</label>
-                                    <select class="form-select" th:field="*{division}">
+                                    <select class="form-select" id="divisionEmployee">
                                         <option th:each="division :${divisionList}"
-                                        th:value="${division.id}"
-                                        th:text="${division.name}" class="form-control"></option>
+                                                th:value="${division.id}"
+                                                th:text="${division.name}" class="form-control"></option>
                                     </select>
                                 </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                <button type="button" id="save" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
                             </div>
                         </div>
                     </div>
@@ -174,37 +182,17 @@
             <th>Division</th>
             <th>Position</th>
             <th>Salary</th>
+            <th>Address</th>
             <th>Update</th>
             <th>Delete</th>
         </tr>
         </thead>
-        <tbody>
-            <tr th:each="employee,loop : ${employeeList}">
-                <td th:text="${loop.count }"></td>
-                <td th:text="${employee.name}"></td>
-                <td th:text="${employee.dateOfBirth}"></td>
-                <td th:text="${employee.idCard}"></td>
-                <td th:text="${employee.email}"></td>
-                <td th:text="${employee.educationDegree.name}"></td>
-                <td th:text="${employee.division.name}"></td>
-                <td th:text="${employee.position.name}"></td>
-                <td th:text="${employee.salary}"></td>
-               <td> <a th:href="@{/updateEmployee(id=${employee.id})}" data-bs-toggle="modal" class="btn btn-warning"
-                        data-bs-target="#exampleModalEmployee">
-                    Update
-                </a>
-               </td>
-                <td>
-                    <button th:attr="onclick=|infoToModal('${employee.id}','${employee.name}')|" class="btn btn-danger"
-                            type="button" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                        Delete
-                    </button>
-                </td>
-            </tr>
+        <tbody id="table">
+        </tbody>
         <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel"
              aria-hidden="true">
             <div class="modal-dialog">
-                <form action="/deleteEmployee" method="get">
+                <form >
                     <div class="modal-content">
                         <div class="modal-header">
                             <h2 class="modal-title" id="exampleModalLabel">Employee</h2>
@@ -219,24 +207,157 @@
                         <div class="modal-body">
                             <label class="form-label">Name Employee:</label>
                             <input type="text"  readonly name="name"  id="deleteName" class="form-control">
-
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary" >Yes</button>
+                            <button type="button"  class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button id="delete" class="btn btn-primary" >Yes</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
-        </tbody>
+
     </table>
+    <nav aria-label="..." class="d-flex justify-content-center">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" href="#" id="aPrevious">Previous</a>
+            </li>
+            <li class="page-item disabled">
+                <a class="page-link" id="pageNumber">1/2
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#" id="aNext">Next</a>
+            </li>
+        </ul>
+    </nav>
 </div>
+<script src="../style/jquery/jquery-3.6.0.min.js"></script>
 <script>
     function infoToModal(id, name) {
-        document.getElementById("deleteId").value = id;
-        document.getElementById("deleteName").value = name;
+        $('#deleteId').val(id);
+        $('#deleteName').val(name);
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "POST",
+            url: "http://localhost:8080/employeeRest/delete/" + id,
+            success: function (employeePage) {
+            },
+            error: function (resultError) {
+                alert('error');
+            }
+        });
     }
+    let curPage = 0;
+let pageNumber;
+$('#aNext').click(function (){
+    if(pageNumber<0) {
+        pageNumber=0
+    }
+    pageNumber++
+})
+     function getEmployee(pageNumber,keyName) {
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:8080/employeeRest/list?page=" + pageNumber +"&keyName=" + keyName ,
+            success: function (employeePage) {
+                console.log(employeePage);
+                let employeeList = employeePage.content;
+                let htmlStr = '';
+                for (let i = 0; i < employeeList.length; i++) {
+
+                    htmlStr += `<tr>
+                        <td>${(i +employeePage.size * employeePage.number)+ 1}</td>
+                        <td>${employeeList[i].name}</td>
+                        <td>${employeeList[i].dateOfBirth}</td>
+                        <td>${employeeList[i].idCard}</td>
+                        <td>${employeeList[i].email}</td>
+                        <td>${employeeList[i].educationDegree.name}</td>
+                        <td>${employeeList[i].division.name}</td>
+                        <td>${employeeList[i].position.name}</td>
+                        <td>${employeeList[i].salary}</td>
+                        <td>${employeeList[i].address}</td>
+                          <td> <a th:href="@{/updateEmployee(id=${employeeList[i].id})}" data-bs-toggle="modal" class="btn btn-warning"
+                        data-bs-target="#exampleModalEmployee">
+                    Update
+                </a>
+               </td>
+                <td>
+                    <button onclick="infoToModal('${employeeList[i].id}','${employeeList[i].name}')" class="btn btn-danger"
+                            type="button" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                        Delete
+                    </button>
+                </td>
+            </td>
+                    </tr>`;
+                }
+                $("#table").html(htmlStr);
+            },
+            error: function (resultError) {
+            }
+        });
+    }
+    $("#aPrevious").click(function () {
+        getEmployee(--curPage);
+    });
+
+    $("#aNext").click(function () {
+        getEmployee(++curPage);
+    });
+    getEmployee();
+
+    $("#save").click(async function () {
+        let name = $("#nameEmployee").val();
+        let dateOfBirth = $('#dateOfBirthEmployee').val();
+        let idCard = $('#idCardEmployee').val();
+        let email = $('#emailEmployee').val();
+        let address = $('#address').val();
+        let phoneNumber = $('#phoneNumber').val();
+        let education = $('#education').val();
+        let ePosition = $('#positionEmployee').val();
+        let salary = $('#salary').val();
+        let eDivision = $('#divisionEmployee').val();
+        let newEmployee = {
+            name: name,
+            dateOfBirth: dateOfBirth,
+            idCard: idCard,
+            salary: salary,
+            email: email,
+            address: address,
+            phoneNumber: phoneNumber,
+            position: {
+                "id": ePosition
+            },
+            division:{
+                "id":eDivision
+            },
+            educationDegree: {
+                "id": education
+            },
+        }
+        console.log(newEmployee);
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "POST",
+            data: JSON.stringify(newEmployee),
+            url: "http://localhost:8080/employeeRest/createEmployee",
+            success: function (employeePage) {
+                debugger
+                getEmployee(pageNumber,"");
+            },
+            error: function (resultError) {
+                alert('error');
+            }
+        });
+    })
+
 </script>
 <script src="../style/bootstrap/bootstrap.bundle.min.js"></script>
 </body>

@@ -87,7 +87,7 @@
         <td th:text="${contracts.getDeposit()}"></td>
         <td th:text="${contracts.getTotal()}"></td>
         <td>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#contractDetail">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#contractDetail" th:onclick="|idContract('${contracts.getId}')|">
                 +
             </button>
             <button type="button" th:attr="onclick=|infoToModal('${contracts.getId}')|" class="btn btn-primary"
@@ -133,15 +133,20 @@
                 <h4 class="modal-title text-danger text-center">Contract Detail</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="/attachFacility">
+            <form action="/attachFacility" method="post">
                 <div class="modal-body">
+                    <input type="hidden" name="idContract" id="idContract">
                     <label class="form-label"> Attach Facility Name:</label>
-                    <select th:each="attachFacilitys:${attachFacilityList}" class="form-select">
-                        <option th:text="${attachFacilitys.name}"></option>
-                    </select>
+                    <select class="form-select" name="idAttachFacility" id="idAttachFacility">
+                        <option th:each="attachFacilitys:${attachFacilityList}"
+                                th:value="${attachFacilitys.id}"
+                                th:text="${attachFacilitys.name}"></option>
+                    </select><br><br>
+                    <input type="number" name="quantity" id="quantity" class="form-control">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
                 </div>
             </form>
         </div>
@@ -193,8 +198,9 @@
             }
         });
     }
-
-    infoToModal(id);
+    function idContract(id){
+        $('#idContract').val(id);
+    }
 </script>
 
 <script src="../style/bootstrap/bootstrap.bundle.min.js"></script>

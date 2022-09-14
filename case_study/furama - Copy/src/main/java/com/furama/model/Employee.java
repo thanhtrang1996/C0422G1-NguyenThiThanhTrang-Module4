@@ -128,4 +128,21 @@ public class Employee {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", dateOfBirth='" + dateOfBirth + '\'' +
+                ", idCard='" + idCard + '\'' +
+                ", salary='" + salary + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
+                ", position=" + position +
+                ", division=" + division +
+                ", educationDegree=" + educationDegree +
+                '}';
+    }
 }
