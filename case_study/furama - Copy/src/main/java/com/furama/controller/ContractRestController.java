@@ -39,17 +39,15 @@ public class ContractRestController {
     @Autowired
     private IFacilityService facilityService;
 
-    @GetMapping("/contract")
+    @GetMapping("/contractRest")
     public ResponseEntity<ContractPageAndAttachFacilityListDto> getAllContract(@PageableDefault(3) Pageable pageable,
                                                                                Optional<String> startDateValue, Optional<String> endDateValue) {
         String startDate = startDateValue.orElse("1000-01-01");
         String endDate = endDateValue.orElse("3000-01-01");
         Page<Contract> contractPage = this.contractService.getAllContract(pageable, startDate, endDate);
         List<AttachFacility> attachFacilityList = this.attachFacilityService.findAll();
-        ContractPageAndAttachFacilityListDto contractPageAndAttachFacilityListDTO = new ContractPageAndAttachFacilityListDto();
-        contractPageAndAttachFacilityListDTO.setContractPageDto(contractPage);
-        contractPageAndAttachFacilityListDTO.setAttachFacilityListDto(attachFacilityList);
-
+        ContractPageAndAttachFacilityListDto contractPageAndAttachFacilityListDTO =
+                new ContractPageAndAttachFacilityListDto(contractPage,attachFacilityList);
         return new ResponseEntity<>(contractPageAndAttachFacilityListDTO, HttpStatus.OK);
     }
 

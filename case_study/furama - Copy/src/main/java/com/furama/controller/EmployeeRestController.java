@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 @CrossOrigin
 @RequestMapping("/employeeRest")
@@ -29,13 +28,28 @@ public class EmployeeRestController {
         return new ResponseEntity<>(employeePage,HttpStatus.OK);
     }
     @PostMapping("/createEmployee")
-    public ResponseEntity<List<Employee>> goCreate(@RequestBody Employee employee){
+    public ResponseEntity<Void> goCreate(@RequestBody Employee employee){
         employeeService.save(employee);
-        return new ResponseEntity<>(employeeService.findAll(),HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
     @PostMapping("/delete/{id}")
     public ResponseEntity<Void> goDelete(@PathVariable Integer id) {
         employeeService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @GetMapping("/update/{id}")
+    public ResponseEntity<Employee> goUpdate(@PathVariable Integer id) {
+        Employee employee = employeeService.findById(id);
+        return new ResponseEntity<>(employee, HttpStatus.OK);
+    }
+
+    @PatchMapping("/updateEmployee")
+    public ResponseEntity<Void> update(@RequestBody Employee employee) {
+        try {
+            this.employeeService.save(employee);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

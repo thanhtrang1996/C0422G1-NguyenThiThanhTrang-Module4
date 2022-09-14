@@ -71,7 +71,6 @@
                                         <input type="hidden" id="quantityAttachFacilityCreate">
                                         <div class="form-floating mb-3">
                                             <div class="text-center m-2">Attach Facility</div>
-                                            <!-- Button trigger modal -->
                                             <button type="button" class="btn btn-outline-primary" id="target">
                                                 +
                                             </button>
@@ -132,8 +131,6 @@
                 </div>
 
                 <hr class="divider"/>
-                <p class="text-muted mb-5">Ready to start your next project with us? Send us a messages and we will get
-                    back to you as soon as possible!</p>
             </div>
         </div>
         <div class="d-flex w-75 float-end mb-2">
@@ -150,7 +147,7 @@
         <div class="container mt-3 overflow-auto">
             <table class="table table-hover text-center">
                 <thead>
-                <tr  class="text-light bg-primary">
+                <tr class="text-light bg-primary">
                     <th>No.</th>
                     <th>Facility Name</th>
                     <th>Customer Name</th>
@@ -188,17 +185,21 @@
         currency: 'USD',
         maximumFractionDigits: 0
     });
+getAllContract();
     function getAllContract(pageNumber, startDate, endDate) {
+        console.log("start")
         $.ajax({
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
             type: "GET",
-            url: "http://localhost:8080/rest/contract?page=" + pageNumber + "&startDateValue=" + startDate + "&endDateValue=" + endDate,
+            url: "http://localhost:8080/rest/contractRest?page=" + pageNumber + "&startDateValue=" + startDate + "&endDateValue=" + endDate,
             success: function (result) {
-                contractPage = result.contractPageDto;
-                attachFacilityList = result.attachFacilityListDto;
+                console.log("rs ");
+                console.log("rs " +result);
+                let contractPage = result.contractPageDto;
+                let attachFacilityList = result.attachFacilityListDto;
                 let contractTableHTML = "";
                 for (let i = 0; i < contractPage.content.length; i++) {
                     let totalMoney = 0;
@@ -216,10 +217,9 @@
                     <td>${contractPage.content[i].endDate}</td>
                     <td>${contractPage.content[i].deposit}</td>
                     <td>`
-                    contractTableHTML +=  totalMoneyFormat
+                    contractTableHTML += totalMoneyFormat
                     contractTableHTML += `</td>
                     <td>
-                        <!-- Button trigger modal -->
                 <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
                 data-bs-target="#staticBackdrop${contractPage.content[i].id}">
                 +
@@ -267,7 +267,7 @@
                 </div>
                 </td>
                 <td>
-                            <!-- Button trigger modal -->
+
                         <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#staticBackdropAFL${contractPage.content[i].id}">
                         List Attach Facility
                         </button>
@@ -315,12 +315,12 @@
                         break;
                 }
                 for (let i = 0; i < contractPage.totalPages; i++) {
-                    switch (Number(i)){
+                    switch (Number(i)) {
                         case Number(pageNumber):
-                            paginationHTML += `<li class="page-item active"><a class="page-link" id="aItem" href="`+ i +`">`+ (i + 1) +`</a></li>`;
+                            paginationHTML += `<li class="page-item active"><a class="page-link" id="aItem" href="` + i + `">` + (i + 1) + `</a></li>`;
                             break;
                         default:
-                            paginationHTML += `<li class="page-item"><a class="page-link" id="aItem" href="`+ i +`">`+ (i + 1) +`</a></li>`;
+                            paginationHTML += `<li class="page-item"><a class="page-link" id="aItem" href="` + i + `">` + (i + 1) + `</a></li>`;
                             break;
                     }
                 }
@@ -329,7 +329,7 @@
                         paginationHTML += `<li class="page-item disabled"><a class="page-link" href="#">Next</a></li>`;
                         break;
                     default:
-                        paginationHTML += `<li class="page-item "><a class="page-link" href="`+ pageNumber +`" id="aNext">Next</a></li>`;
+                        paginationHTML += `<li class="page-item "><a class="page-link" href="` + pageNumber + `" id="aNext">Next</a></li>`;
                         break;
                 }
                 $("#paginationTable").html(paginationHTML);
@@ -340,6 +340,7 @@
             }
         });
     }
+
     $(document).ready(function () {
         $("#paginationTable").on('click', '#aNext', function (event) {
             let numberPage = $(this).attr("href");

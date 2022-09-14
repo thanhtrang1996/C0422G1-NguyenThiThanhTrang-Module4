@@ -7,7 +7,7 @@
 <div class="container">
     <h1 class="text-center text-primary">List Employee</h1>
             <div class="row">
-                <form action="/updateEmployee" th:object="${employeeEdit}" method="post">
+                <form action="/updateEmployee"  method="post">
 
                     <div class="modal fade" id="exampleModalEmployee" tabindex="-1" aria-labelledby="exampleModalLabel1"
                          aria-hidden="true">
@@ -24,29 +24,37 @@
                                         <div>
                                             <div>
                                                 <label class="form-label">Id Employee:</label>
-                                                <input type="text"  readonly th:field="*{id}" name ="id" class="form-control">
+                                                <input type="text"  readonly id="updateId" name ="id" class="form-control">
                                             </div>
                                             <div>
                                                 <label class="form-label">Name Employee:</label>
-                                                <input type="text"  th:field="*{name}" class="form-control">
+                                                <input type="text"   id="updateName" class="form-control">
                                             </div>
                                             <div>
                                                 <label class="form-label">Date Of Birth:</label>
-                                                <input type="date"  th:field="*{dateOfBirth}"
+                                                <input type="date"  id="updateDate"
                                                        class="form-control">
                                             </div>
                                             <div>
                                                 <label class="form-label">ID Card Employee:</label>
-                                                <input type="text" th:field="*{idCard}" class="form-control">
+                                                <input type="text" id="updateIdCard" class="form-control">
                                             </div>
                                             <div>
                                                 <label class="form-label">Email Employee:</label>
-                                                <input type="text" th:field="*{email}" class="form-control">
+                                                <input type="text" id="updateEmail" class="form-control">
+                                            </div>
+                                            <div>
+                                                <label class="form-label">Address Employee:</label>
+                                                <input type="text" id="updateAddress" class="form-control">
+                                            </div>
+                                            <div>
+                                                <label class="form-label">Phone Number Employee:</label>
+                                                <input type="text" id="updatePhone" class="form-control">
                                             </div>
                                             <div>
                                                 <div>
                                                     <label class="form-label">Education Degree Employee:</label>
-                                                    <select class="form-select" th:field="*{educationDegree}">
+                                                    <select class="form-select" id="updateEducation">
                                                         <option th:each="education :${educationDegreeList}"
                                                                 th:value="${education.id}"
                                                                 th:text="${education.name}" class="form-control"></option>
@@ -55,7 +63,7 @@
                                             </div>
                                             <div>
                                                 <label class="form-label">Position Employee:</label>
-                                                <select class="form-select" th:field ="*{position}">
+                                                <select class="form-select" id="updatePosition">
                                                     <option th:each="position : ${positionList}"
                                                             th:value="${position.id}"
                                                             th:text="${position.name}" class="form-control"></option>
@@ -63,11 +71,11 @@
                                             </div>
                                             <div>
                                                 <label class="form-label">Salary Employee:</label>
-                                                <input type="text" name="salary" placeholder="Salary" class="form-control">
+                                                <input type="text" name="salary" id="updateSalary" class="form-control">
                                             </div>
                                             <div>
                                                 <label class="form-label">Division Employee:</label>
-                                                <select class="form-select" th:field="*{division}">
+                                                <select class="form-select" id="updateDivision">
                                                     <option th:each="division :${divisionList}"
                                                             th:value="${division.id}"
                                                             th:text="${division.name}" class="form-control"></option>
@@ -76,7 +84,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                            <button type="submit" id="saveUpdate" class="btn btn-primary"  data-bs-dismiss="modal">Save changes</button>
                                         </div>
                                     </div>
                             </div>
@@ -85,7 +93,6 @@
                     </div>
                 </form>
             </div>
-
                 <button type="button" data-bs-toggle="modal" class=" btn btn-success"
                         data-bs-target="#create"  >
                     Create New Employee
@@ -253,7 +260,7 @@
         });
     }
     let curPage = 0;
-let pageNumber;
+    let pageNumber;
 $('#aNext').click(function (){
     if(pageNumber<0) {
         pageNumber=0
@@ -281,7 +288,7 @@ $('#aNext').click(function (){
                         <td>${employeeList[i].position.name}</td>
                         <td>${employeeList[i].salary}</td>
                         <td>${employeeList[i].address}</td>
-                          <td> <a th:href="@{/updateEmployee(id=${employeeList[i].id})}" data-bs-toggle="modal" class="btn btn-warning"
+                          <td> <a onclick="update('${employeeList[i].id}')"data-bs-toggle="modal" class="btn btn-warning"
                         data-bs-target="#exampleModalEmployee">
                     Update
                 </a>
@@ -310,7 +317,7 @@ $('#aNext').click(function (){
     });
     getEmployee();
 
-    $("#save").click(async function () {
+    $("#save").click( function () {
         let name = $("#nameEmployee").val();
         let dateOfBirth = $('#dateOfBirthEmployee').val();
         let idCard = $('#idCardEmployee').val();
@@ -339,7 +346,6 @@ $('#aNext').click(function (){
                 "id": education
             },
         }
-        console.log(newEmployee);
         $.ajax({
             headers: {
                 'Accept': 'application/json',
@@ -351,6 +357,78 @@ $('#aNext').click(function (){
             success: function (employeePage) {
                 debugger
                 getEmployee(pageNumber,"");
+            },
+            error: function (resultError) {
+                alert('error');
+            }
+        });
+    })
+
+    function update(id) {
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "GET",
+            url: "http://localhost:8080/employeeRest/update/" + id,
+            success: function (employee) {
+                $('#updateId').val(employee.id);
+                $('#updateName').val(employee.name);
+                $('#updateDate').val(employee.dateOfBirth);
+                $('#updateIdCard').val(employee.idCard);
+                $('#updateEmail').val(employee.email);
+                $('#updateAddress').val(employee.address);
+                $('#updatePhone').val(employee.phoneNumber);
+                $('#updateEducation').val(employee.educationDegree.id);
+                $('#updatePosition').val(employee.position.id);
+                $('#updateSalary').val(employee.salary);
+                $('#updateDivision').val(employee.division.id);
+            },
+            error: function (resultError) {
+                alert('error');
+            }
+        });
+    }
+  $("#saveUpdate").click(async function () {
+        let name = $("#updateName").val();
+        let dateOfBirth = $('#updateDate').val();
+        let idCard = $('#updateIdCard').val();
+        let email = $('#updateEmail').val();
+        let address = $('#updateAddress').val();
+        let phoneNumber = $('#updatePhone').val();
+        let education = $('#updateEducation').val();
+        let ePosition = $('#updatePosition').val();
+        let salary = $('#updateSalary').val();
+        let eDivision = $('#updateDivision').val();
+        let employee = {
+            name: name,
+            dateOfBirth: dateOfBirth,
+            idCard: idCard,
+            salary: salary,
+            email: email,
+            address: address,
+            phoneNumber: phoneNumber,
+            position: {
+                "id": ePosition
+            },
+            division:{
+                "id":eDivision
+            },
+            educationDegree: {
+                "id": education
+            },
+        }
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "PATCH",
+            data: JSON.stringify(employee),
+            url: "http://localhost:8080/employeeRest/updateEmployee",
+            success: function (employeePage) {
+                e.preventDefault();
             },
             error: function (resultError) {
                 alert('error');

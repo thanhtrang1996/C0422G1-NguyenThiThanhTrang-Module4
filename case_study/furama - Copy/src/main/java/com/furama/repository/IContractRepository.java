@@ -9,8 +9,8 @@ import org.springframework.data.repository.query.Param;
 
 public interface IContractRepository extends JpaRepository<Contract,Integer> {
 
-    @Query(value = " SELECT * FROM contract where end_date between start_date and end_date; ",
-            nativeQuery = true, countQuery = "  SELECT * FROM contract where end_date between start_date and end_date; ")
+    @Query(value = " SELECT * FROM contract where end_date between start_date and end_date ",
+            nativeQuery = true, countQuery = " select count(*) from( SELECT * FROM contract where end_date between start_date and end_date ) as page")
     Page<Contract> getAllContract(Pageable pageable, @Param("startDateValue") String startDateValue, @Param("endDateValue") String endDateValue);
 
     @Query(value = " select * from contract join  contract_detail ON contract_detail.contract_id = contract.id\n" +
